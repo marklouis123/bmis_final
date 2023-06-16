@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class FieldWidget extends StatelessWidget {
@@ -5,7 +6,8 @@ class FieldWidget extends StatelessWidget {
     Key? key,
     this.dataType,
     this.placeHolder,
-    this.label,
+    this.labelText,
+    this.hintText,
     this.defaultValue,
     this.options,
     this.question,
@@ -13,7 +15,8 @@ class FieldWidget extends StatelessWidget {
   }) : super(key: key);
   final String? dataType;
   final String? placeHolder;
-  final String? label;
+  final String? labelText;
+  final String? hintText;
   final dynamic defaultValue;
   final List<String>? options;
   final String? question;
@@ -21,10 +24,45 @@ class FieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (question!.isEmpty){
-      return Text('way sulod');
+    if (question!.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: TextField(
+          decoration: InputDecoration(
+            hintText: hintText,
+            labelText: labelText,
+            border: const OutlineInputBorder(),
+            fillColor: Colors.white,
+            filled: true,
+          ),
+        ),
+      );
     } else {
-      return const Text('naay sulod');
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Text(question!,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 18.0,
+                )),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: hintText,
+                labelText: labelText,
+                border: const OutlineInputBorder(),
+                fillColor: Colors.white,
+                filled: true,
+              ),
+            ),
+          ),
+        ],
+      );
     }
   }
 }

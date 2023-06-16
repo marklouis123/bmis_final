@@ -93,8 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // center the children vertically; the main axis here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             const Text(
               'You have pushed the button this many times:',
@@ -104,19 +103,26 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headline4,
             ),
             const SizedBox(
-                height: 10.0,
+              height: 10.0,
             ),
             Expanded(
               child: SingleChildScrollView(
                 child: Container(
-                  margin: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
+                  margin:
+                      const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
                   padding: const EdgeInsets.all(20.0),
                   decoration: BoxDecoration(
-                    color: Colors.lightBlue,
-                    borderRadius: BorderRadius.circular(20.0),),
+                    color: Colors.blue[100],
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
                   child: Column(
-                    children: [
-                      const Text('data'),
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: const [
+                      FieldWidget(
+                        question: '',
+                        labelText: 'Family Head ID',
+                        hintText: 'Enter Text Here',
+                      ),
                     ],
                   ),
                 ),
