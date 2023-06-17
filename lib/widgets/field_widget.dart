@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-class FieldWidget extends StatelessWidget {
+class FieldWidget extends StatefulWidget {
   const FieldWidget({
     Key? key,
     this.dataType,
@@ -23,27 +23,77 @@ class FieldWidget extends StatelessWidget {
   final Function()? onChange;
 
   @override
-  Widget build(BuildContext context) {
-    if (question!.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
-        child: TextField(
-          decoration: InputDecoration(
-            hintText: hintText,
-            labelText: labelText,
-            border: const OutlineInputBorder(),
-            fillColor: Colors.white,
-            filled: true,
-          ),
+  State<FieldWidget> createState() => _FieldWidgetState();
+}
+
+class _FieldWidgetState extends State<FieldWidget> {
+  String? optionValue;
+
+  DropdownMenuItem<String> buildMenuItem(String item) {
+    return DropdownMenuItem(
+      value: item,
+      child: Text(
+        item,
+        style: const TextStyle(
+          fontSize: 18,
         ),
-      );
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.question!.isEmpty) {
+      if (widget.options!.isEmpty) {
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: widget.hintText,
+                  labelText: widget.labelText,
+                  border: const OutlineInputBorder(),
+                  fillColor: Colors.white,
+                  filled: true,
+                ),
+                keyboardType: widget.dataType == 'text'
+                    ? TextInputType.text
+                    : widget.dataType == 'number'
+                        ? TextInputType.number
+                        : TextInputType.text,
+              ),
+            ),
+            // Text(options!.elementAt(0)),
+          ],
+        );
+      } else {
+        return DropdownButton<String>(
+          isExpanded: true,
+          value: optionValue,
+          elevation: 16,
+          onChanged: (value) {
+            setState(() {
+              optionValue = value!;
+            });
+          },
+          items: widget.options!.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          // items: widget.options!.map(buildMenuItem).toList(),
+          // onChanged: (newValue) => setState(() => optionValue = newValue),
+        );
+      }
     } else {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text(question!,
+            child: Text(widget.question!,
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18.0,
@@ -53,12 +103,17 @@ class FieldWidget extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: TextField(
               decoration: InputDecoration(
-                hintText: hintText,
-                labelText: labelText,
+                hintText: widget.hintText,
+                labelText: widget.labelText,
                 border: const OutlineInputBorder(),
                 fillColor: Colors.white,
                 filled: true,
               ),
+              keyboardType: widget.dataType == 'text'
+                  ? TextInputType.text
+                  : widget.dataType == 'number'
+                      ? TextInputType.number
+                      : TextInputType.text,
             ),
           ),
         ],
