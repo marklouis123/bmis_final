@@ -29,18 +29,6 @@ class FieldWidget extends StatefulWidget {
 class _FieldWidgetState extends State<FieldWidget> {
   String? optionValue;
 
-  DropdownMenuItem<String> buildMenuItem(String item) {
-    return DropdownMenuItem(
-      value: item,
-      child: Text(
-        item,
-        style: const TextStyle(
-          fontSize: 18,
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     if (widget.question!.isEmpty) {
@@ -64,60 +52,98 @@ class _FieldWidgetState extends State<FieldWidget> {
                         : TextInputType.text,
               ),
             ),
-            // Text(options!.elementAt(0)),
           ],
         );
       } else {
-        return DropdownButton<String>(
-          isExpanded: true,
-          value: optionValue,
-          elevation: 16,
-          onChanged: (value) {
-            setState(() {
-              optionValue = value!;
-            });
-          },
-          items: widget.options!.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-          // items: widget.options!.map(buildMenuItem).toList(),
-          // onChanged: (newValue) => setState(() => optionValue = newValue),
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4.0),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(color: Colors.black)),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              isExpanded: true,
+              itemHeight: 60,
+              value: optionValue,
+              onChanged: (value) {
+                setState(() {
+                  optionValue = value!;
+                });
+              },
+              items:
+                  widget.options!.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              // items: widget.options!.map(buildMenuItem).toList(),
+              // onChanged: (newValue) => setState(() => optionValue = newValue),
+            ),
+          ),
         );
       }
     } else {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text(widget.question!,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 18.0,
-                )),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: widget.hintText,
-                labelText: widget.labelText,
-                border: const OutlineInputBorder(),
-                fillColor: Colors.white,
-                filled: true,
+      if (widget.options!.isEmpty) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Text(widget.question!,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 18.0,
+                  )),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: widget.hintText,
+                  labelText: widget.labelText,
+                  border: const OutlineInputBorder(),
+                  fillColor: Colors.white,
+                  filled: true,
+                ),
+                keyboardType: widget.dataType == 'text'
+                    ? TextInputType.text
+                    : widget.dataType == 'number'
+                        ? TextInputType.number
+                        : TextInputType.text,
               ),
-              keyboardType: widget.dataType == 'text'
-                  ? TextInputType.text
-                  : widget.dataType == 'number'
-                      ? TextInputType.number
-                      : TextInputType.text,
+            ),
+          ],
+        );
+      } else {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4.0),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(color: Colors.black)),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              isExpanded: true,
+              itemHeight: 60,
+              value: optionValue,
+              onChanged: (value) {
+                setState(() {
+                  optionValue = value!;
+                });
+              },
+              items:
+                  widget.options!.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              // items: widget.options!.map(buildMenuItem).toList(),
+              // onChanged: (newValue) => setState(() => optionValue = newValue),
             ),
           ),
-        ],
-      );
+        );
+      }
     }
   }
 }
