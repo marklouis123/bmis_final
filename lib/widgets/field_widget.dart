@@ -35,7 +35,8 @@ class _FieldWidgetState extends State<FieldWidget> {
       if (widget.options!.isEmpty) {
         return Column(
           children: [
-            Padding(
+            Container(
+              margin: const EdgeInsets.only(top: 16.0),
               padding: const EdgeInsets.only(bottom: 8.0),
               child: TextField(
                 decoration: InputDecoration(
@@ -56,6 +57,7 @@ class _FieldWidgetState extends State<FieldWidget> {
         );
       } else {
         return Container(
+          margin: const EdgeInsets.only(top: 16.0),
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4.0),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
@@ -77,8 +79,6 @@ class _FieldWidgetState extends State<FieldWidget> {
                   child: Text(value),
                 );
               }).toList(),
-              // items: widget.options!.map(buildMenuItem).toList(),
-              // onChanged: (newValue) => setState(() => optionValue = newValue),
             ),
           ),
         );
@@ -88,7 +88,8 @@ class _FieldWidgetState extends State<FieldWidget> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
+            Container(
+              // margin: const EdgeInsets.only(bottom: 16.0),
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Text(widget.question!,
                   style: const TextStyle(
@@ -117,30 +118,46 @@ class _FieldWidgetState extends State<FieldWidget> {
         );
       } else {
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(color: Colors.black)),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              isExpanded: true,
-              itemHeight: 60,
-              value: optionValue,
-              onChanged: (value) {
-                setState(() {
-                  optionValue = value!;
-                });
-              },
-              items:
-                  widget.options!.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              // items: widget.options!.map(buildMenuItem).toList(),
-              // onChanged: (newValue) => setState(() => optionValue = newValue),
-            ),
+          margin: const EdgeInsets.only(top: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                // margin: const EdgeInsets.only(bottom: 16.0),
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Text(widget.question!,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                    )),
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4.0),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(color: Colors.black)),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    isExpanded: true,
+                    itemHeight: 60,
+                    value: optionValue,
+                    onChanged: (value) {
+                      setState(() {
+                        optionValue = value!;
+                      });
+                    },
+                    items: widget.options!
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       }

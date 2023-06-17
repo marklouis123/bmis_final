@@ -119,7 +119,36 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: const [
                       FieldWidget(
-                        question: 'sasda',
+                        question: 'asda',
+                        // labelText: 'Family Head ID',
+                        // hintText: 'Enter Text Here',
+                        // dataType: 'text',
+                        options: ['1', '2'],
+                      ),
+                      FieldWidget(
+                        question: '',
+                        options: ['1', '2'],
+                      ),
+                      FieldWidget(
+                        question: '',
+                        labelText: 'Family Head ID',
+                        hintText: 'Enter Text Here',
+                        dataType: 'text',
+                        options: [],
+                      ),
+                      FieldWidget(
+                        question: 'asda',
+                        labelText: 'Family Head ID',
+                        hintText: 'Enter Text Here',
+                        dataType: 'text',
+                        options: [],
+                      ),
+                      FieldWidget(
+                        question: '',
+                        options: ['1', '2'],
+                      ),
+                      FieldWidget(
+                        question: 'asda',
                         // labelText: 'Family Head ID',
                         // hintText: 'Enter Text Here',
                         // dataType: 'text',
