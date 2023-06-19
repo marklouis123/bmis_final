@@ -89,13 +89,12 @@ class _FieldWidgetState extends State<FieldWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              // margin: const EdgeInsets.only(bottom: 16.0),
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Text(widget.question!,
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 18.0,
-                  )),
+                  ),),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),

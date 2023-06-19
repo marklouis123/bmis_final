@@ -1,3 +1,4 @@
+import 'package:bmis_final/widgets/add_contact_number_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:bmis_final/widgets/field_widget.dart';
 
@@ -71,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      backgroundColor: const Color(0xffDEF2F1),
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
@@ -112,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
                   padding: const EdgeInsets.all(20.0),
                   decoration: BoxDecoration(
-                    color: Colors.blue[100],
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   child: Column(
@@ -143,17 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         dataType: 'text',
                         options: [],
                       ),
-                      FieldWidget(
-                        question: '',
-                        options: ['1', '2'],
-                      ),
-                      FieldWidget(
-                        question: 'asda',
-                        // labelText: 'Family Head ID',
-                        // hintText: 'Enter Text Here',
-                        // dataType: 'text',
-                        options: ['1', '2'],
-                      ),
+                      AddContactNumberWidget(question: '4. asasda'),
                     ],
                   ),
                 ),
