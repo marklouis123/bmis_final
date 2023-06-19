@@ -1,47 +1,22 @@
 import 'package:bmis_final/models/circle.dart';
 import 'package:bmis_final/models/square.dart';
-import 'package:bmis_final/screens/testing_screen.dart';
-import 'package:bmis_final/widgets/add_contact_number_widget.dart';
-import 'package:bmis_final/widgets/contact_tile.dart';
-import 'package:flutter/material.dart';
 import 'package:bmis_final/widgets/field_widget.dart';
+import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class TestingScreen extends StatefulWidget {
+  const TestingScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'BMIS Final',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      // home: const TestingScreen(),
-    );
-  }
+  State<TestingScreen> createState() => _TestingScreenState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _TestingScreenState extends State<TestingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffDEF2F1),
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Testing Screen'),
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
