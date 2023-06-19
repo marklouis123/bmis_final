@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class FieldWidget extends StatefulWidget {
   const FieldWidget({
@@ -37,7 +38,7 @@ class _FieldWidgetState extends State<FieldWidget> {
           children: [
             Container(
               margin: const EdgeInsets.only(top: 16.0),
-              padding: const EdgeInsets.only(bottom: 8.0),
+              // padding: const EdgeInsets.only(bottom: 16.0),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: widget.hintText,
@@ -50,7 +51,9 @@ class _FieldWidgetState extends State<FieldWidget> {
                     ? TextInputType.text
                     : widget.dataType == 'number'
                         ? TextInputType.number
-                        : TextInputType.text,
+                        : widget.dataType == 'phone'
+                            ? TextInputType.phone
+                            : TextInputType.text,
               ),
             ),
           ],
@@ -58,6 +61,7 @@ class _FieldWidgetState extends State<FieldWidget> {
       } else {
         return Container(
           margin: const EdgeInsets.only(top: 16.0),
+          // padding: const EdgeInsets.only(bottom: 8.0),
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4.0),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
@@ -90,11 +94,13 @@ class _FieldWidgetState extends State<FieldWidget> {
           children: [
             Container(
               padding: const EdgeInsets.only(bottom: 8.0),
-              child: Text(widget.question!,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.0,
-                  ),),
+              child: Text(
+                widget.question!,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 18.0,
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
