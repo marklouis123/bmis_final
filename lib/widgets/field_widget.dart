@@ -54,6 +54,12 @@ class _FieldWidgetState extends State<FieldWidget> {
                         : widget.dataType == 'phone'
                             ? TextInputType.phone
                             : TextInputType.text,
+                inputFormatters: widget.dataType == 'number'
+                    ? [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r"^\d*\.?\d*$")),
+                      ]
+                    : [],
               ),
             ),
           ],
@@ -117,6 +123,12 @@ class _FieldWidgetState extends State<FieldWidget> {
                     : widget.dataType == 'number'
                         ? TextInputType.number
                         : TextInputType.text,
+                inputFormatters: widget.dataType == 'number'
+                    ? [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r"^\d*\.?\d*$")),
+                      ]
+                    : [],
               ),
             ),
           ],
