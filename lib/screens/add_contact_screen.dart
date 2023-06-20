@@ -1,3 +1,4 @@
+import 'package:bmis_final/widgets/contact_list.dart';
 import 'package:bmis_final/widgets/field_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -49,7 +50,10 @@ class AddContactScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
-              )
+              ),
+              const Expanded(
+                child: ContactList(),
+              ),
             ],
           ),
         ),

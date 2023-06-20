@@ -22,6 +22,7 @@ class _AddContactNumberWidgetState extends State<AddContactNumberWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
+          margin: const EdgeInsets.only(top: 16.0),
           padding: const EdgeInsets.only(bottom: 8.0),
           child: Text(
             widget.question!,

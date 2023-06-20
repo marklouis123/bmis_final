@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       question: '',
                       labelText: 'Family Head ID',
                       hintText: 'Enter Text Here',
-                      dataType: 'text',
+                      dataType: 'number',
                       options: [],
                     ),
                     FieldWidget(

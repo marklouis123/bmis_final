@@ -19,6 +19,10 @@ class _ContactListState extends State<ContactList> {
       serviceProvider: 'Globe',
       contactNumber: '321',
     ),
+    Contact(
+      serviceProvider: 'Dito',
+      contactNumber: '213',
+    )
   ];
 
   @override

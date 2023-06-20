@@ -22,7 +22,10 @@ class ContactTile extends StatelessWidget {
       ),
       trailing: IconButton(
         onPressed: () {},
-        icon: const Icon(Icons.close_rounded),
+        icon: const Icon(
+          Icons.cancel_rounded,
+          color: Colors.black,
+        ),
       ),
     );
   }

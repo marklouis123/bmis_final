@@ -1,5 +1,6 @@
 import 'package:bmis_final/models/circle.dart';
 import 'package:bmis_final/models/square.dart';
+import 'package:bmis_final/widgets/add_contact_number_widget.dart';
 import 'package:bmis_final/widgets/field_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -39,38 +40,40 @@ class _TestingScreenState extends State<TestingScreen> {
               ),
               Expanded(
                 child: ListView(
-                  children: const <Widget>[
-                    Text(
+                  children: <Widget>[
+                    const Text(
                       'You have pushed the button this many times:',
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
-                    MySquare(),
-                    MySquare(),
-                    MySquare(),
-                    FieldWidget(
+                    const FieldWidget(
                       question: '',
                       labelText: 'Family Head ID',
                       hintText: 'Enter Text Here',
-                      dataType: 'text',
+                      dataType: 'number',
                       options: [],
                     ),
-                    FieldWidget(
+                    const FieldWidget(
                       question: '32. asda',
                       labelText: 'Family Head ID',
                       hintText: 'Enter Text Here',
                       dataType: 'text',
                       options: [],
                     ),
-                    FieldWidget(
+                    const FieldWidget(
                       question: '',
                       options: ['1', '2'],
                     ),
-                    FieldWidget(
+                    const FieldWidget(
                       question: '1. asda',
                       options: ['1', '2'],
                     ),
+                    AddContactNumberWidget(
+                      context: context,
+                      question: '4. Telephone/Cell-phone Service Provider.',
+                    ),
+                    
                   ],
                 ),
               ),

@@ -1,5 +1,8 @@
 class Contact {
-  Contact({this.serviceProvider, this.contactNumber});
+  Contact({
+    this.serviceProvider,
+    this.contactNumber,
+  });
   final String? serviceProvider;
   final String? contactNumber;
 }
