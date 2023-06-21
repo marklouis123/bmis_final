@@ -1,4 +1,5 @@
 import 'package:bmis_final/models/circle.dart';
+import 'package:bmis_final/models/contact.dart';
 import 'package:bmis_final/models/square.dart';
 import 'package:bmis_final/widgets/add_contact_number_widget.dart';
 import 'package:bmis_final/widgets/field_widget.dart';
@@ -12,6 +13,21 @@ class TestingScreen extends StatefulWidget {
 }
 
 class _TestingScreenState extends State<TestingScreen> {
+  List<Contact> contacts = [
+    Contact(
+      serviceProvider: 'Smart',
+      contactNumber: '123',
+    ),
+    Contact(
+      serviceProvider: 'Globe',
+      contactNumber: '321',
+    ),
+    Contact(
+      serviceProvider: 'Dito',
+      contactNumber: '213',
+    )
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +67,7 @@ class _TestingScreenState extends State<TestingScreen> {
                       question: '',
                       labelText: 'Family Head ID',
                       hintText: 'Enter Text Here',
-                      dataType: 'number',
+                      dataType: 'integer',
                       options: [],
                     ),
                     const FieldWidget(
@@ -72,8 +88,8 @@ class _TestingScreenState extends State<TestingScreen> {
                     AddContactNumberWidget(
                       context: context,
                       question: '4. Telephone/Cell-phone Service Provider.',
+                      contacts: contacts,
                     ),
-                    
                   ],
                 ),
               ),

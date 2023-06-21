@@ -21,7 +21,7 @@ class FieldWidget extends StatefulWidget {
   final dynamic defaultValue;
   final List<String>? options;
   final String? question;
-  final Function()? onChange;
+  final Function(dynamic value)? onChange;
 
   @override
   State<FieldWidget> createState() => _FieldWidgetState();
@@ -40,6 +40,7 @@ class _FieldWidgetState extends State<FieldWidget> {
               // margin: const EdgeInsets.only(top: 16.0),
               padding: const EdgeInsets.only(bottom: 16.0),
               child: TextField(
+                onChanged: widget.onChange,
                 decoration: InputDecoration(
                   hintText: widget.hintText,
                   labelText: widget.labelText,
@@ -49,7 +50,7 @@ class _FieldWidgetState extends State<FieldWidget> {
                 ),
                 keyboardType: widget.dataType == 'text'
                     ? TextInputType.text
-                    : widget.dataType == 'number'
+                    : widget.dataType == 'integer'
                         ? TextInputType.number
                         : widget.dataType == 'phone'
                             ? TextInputType.phone
@@ -114,7 +115,7 @@ class _FieldWidgetState extends State<FieldWidget> {
                 ),
                 keyboardType: widget.dataType == 'text'
                     ? TextInputType.text
-                    : widget.dataType == 'number'
+                    : widget.dataType == 'integer'
                         ? TextInputType.number
                         : TextInputType.text,
               ),
