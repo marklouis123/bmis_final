@@ -71,6 +71,7 @@ class _FieldWidgetState extends State<FieldWidget> {
             child: DropdownButton<String>(
               isExpanded: true,
               itemHeight: 60,
+              hint:Text(widget.hintText!),
               value: optionValue,
               onChanged: (value) {
                 setState(() {

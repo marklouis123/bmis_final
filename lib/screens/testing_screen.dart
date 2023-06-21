@@ -79,10 +79,12 @@ class _TestingScreenState extends State<TestingScreen> {
                     ),
                     const FieldWidget(
                       question: '',
+                      hintText: 'bilat',
                       options: ['1', '2'],
                     ),
                     const FieldWidget(
                       question: '1. asda',
+                      hintText: '',
                       options: ['1', '2'],
                     ),
                     AddContactNumberWidget(
