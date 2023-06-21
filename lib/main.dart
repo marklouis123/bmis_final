@@ -1,5 +1,6 @@
 import 'package:bmis_final/models/circle.dart';
 import 'package:bmis_final/models/square.dart';
+import 'package:bmis_final/screens/testing_screen.dart';
 import 'package:bmis_final/widgets/add_contact_number_widget.dart';
 import 'package:bmis_final/widgets/contact_tile.dart';
 import 'package:flutter/material.dart';
@@ -157,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       question: '',
                       labelText: 'Family Head ID',
                       hintText: 'Enter Text Here',
-                      dataType: 'text',
+                      dataType: 'number',
                       options: [],
                     ),
                     FieldWidget(

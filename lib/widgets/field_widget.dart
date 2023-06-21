@@ -37,8 +37,8 @@ class _FieldWidgetState extends State<FieldWidget> {
         return Column(
           children: [
             Container(
-              margin: const EdgeInsets.only(top: 16.0),
-              // padding: const EdgeInsets.only(bottom: 16.0),
+              // margin: const EdgeInsets.only(top: 16.0),
+              padding: const EdgeInsets.only(bottom: 16.0),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: widget.hintText,
