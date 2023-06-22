@@ -23,19 +23,25 @@ class AddContactScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const FieldWidget(
+              FieldWidget(
                 question: '',
                 labelText: 'Service Provider',
                 hintText: 'Enter Text Here',
                 dataType: 'text',
                 options: [],
+                defaultValue: null,
+                onChange: (val) {},
+                placeHolder: '',
               ),
-              const FieldWidget(
+              FieldWidget(
                 question: '',
                 labelText: 'Contact Number',
                 hintText: 'Enter Text Here',
                 dataType: 'phone',
                 options: [],
+                defaultValue: null,
+                onChange: (val) {},
+                placeHolder: '',
               ),
               Container(
                 margin: const EdgeInsets.only(top: 16.0),

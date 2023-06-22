@@ -1,3 +1,4 @@
+import 'package:bmis_final/presentation/components/MultipleEntryField.dart';
 import 'package:bmis_final/widgets/field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -136,7 +137,7 @@ class HouseholdForm extends StatelessWidget {
                     'subsection') {
                   return Column(children: [
                     Container(
-                        margin: EdgeInsets.symmetric(vertical: 20),
+                        margin: EdgeInsets.only(top: 35),
                         color: Color(0xffdef2f1),
                         child: Row(
                           children: [
@@ -170,18 +171,30 @@ class HouseholdForm extends StatelessWidget {
                             hintText: 'Enter Text Here',
                             dataType: currentSection['child_columns'][index]
                                 ['child_columns'][i]['data_type'],
-                            options: [],
+                            options: currentSection['child_columns'][index]
+                                ['child_columns'][i]['options'],
                             onChange: (val) {
                               context.read<Household>().onFieldChange(
                                   currentSection['key'],
                                   currentSection['child_columns'][index]['key'],
                                   currentSection['child_columns'][index]
                                       ['child_columns'][i]['key'],
-                                  val);
+                                  val,
+                                  null);
                             },
+                            defaultValue: null,
+                            placeHolder: '',
                           ));
                     }),
                   ]);
+                } else if (currentSection['child_columns'][index]
+                        ['data_type'] ==
+                    'multi_entry') {
+                  return MultipleEntryField(
+                    mainContext: context,
+                    section: currentSection['key'],
+                    fieldData: currentSection['child_columns'][index],
+                  );
                 } else {
                   return FieldWidget(
                     question: '',
@@ -189,14 +202,17 @@ class HouseholdForm extends StatelessWidget {
                     hintText: 'Enter Text Here',
                     dataType: currentSection['child_columns'][index]
                         ['data_type'],
-                    options: [],
+                    options: currentSection['child_columns'][index]['options'],
                     onChange: (val) {
                       context.read<Household>().onFieldChange(
                           currentSection['key'],
                           null,
                           currentSection['child_columns'][index]['key'],
-                          val);
+                          val,
+                          null);
                     },
+                    defaultValue: null,
+                    placeHolder: '',
                   );
                 }
               }))),

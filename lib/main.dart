@@ -22,8 +22,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'BMIS Final',
       theme: ThemeData(
-        primaryColor: Color(0xff2a7a78),
-      ),
+          primaryColor: Color(0xff2a7a78),
+          colorScheme: const ColorScheme(
+              brightness: Brightness.light,
+              primary: Color(0xff17252a),
+              onPrimary: Color(0xffffffff),
+              secondary: Color(0xffffffff),
+              onSecondary: Color(0xffffffff),
+              error: Color(0xffff3333),
+              onError: Color(0xffff3333),
+              background: Color(0xff17252a),
+              onBackground: Color(0xff17252a),
+              surface: Color(0xff17252a),
+              onSurface: Color(0xff17252a))),
       home: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => Household()),
@@ -34,86 +45,86 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+// class MyHomePage extends StatefulWidget {
+//   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  final String title;
+//   final String title;
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+//   @override
+//   State<MyHomePage> createState() => _MyHomePageState();
+// }
 
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffDEF2F1),
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Container(
-          padding: const EdgeInsets.all(8.0),
-          margin: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 100,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: const [
-                    MyCircle(),
-                    MyCircle(),
-                    MyCircle(),
-                    MyCircle(),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: ListView(
-                  children: const <Widget>[
-                    Text(
-                      'You have pushed the button this many times:',
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    MySquare(),
-                    MySquare(),
-                    MySquare(),
-                    FieldWidget(
-                      question: '',
-                      labelText: 'Family Head ID',
-                      hintText: 'Enter Text Here',
-                      dataType: 'number',
-                      options: [],
-                    ),
-                    FieldWidget(
-                      question: '32. asda',
-                      labelText: 'Family Head ID',
-                      hintText: 'Enter Text Here',
-                      dataType: 'text',
-                      options: [],
-                    ),
-                    FieldWidget(
-                      question: '',
-                      options: ['1', '2'],
-                    ),
-                    FieldWidget(
-                      question: '1. asda',
-                      options: ['1', '2'],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class _MyHomePageState extends State<MyHomePage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: const Color(0xffDEF2F1),
+//       appBar: AppBar(
+//         title: Text(widget.title),
+//       ),
+//       body: GestureDetector(
+//         onTap: () => FocusScope.of(context).unfocus(),
+//         child: Container(
+//           padding: const EdgeInsets.all(8.0),
+//           margin: const EdgeInsets.all(8.0),
+//           child: Column(
+//             children: [
+//               SizedBox(
+//                 height: 100,
+//                 child: ListView(
+//                   scrollDirection: Axis.horizontal,
+//                   children: const [
+//                     MyCircle(),
+//                     MyCircle(),
+//                     MyCircle(),
+//                     MyCircle(),
+//                   ],
+//                 ),
+//               ),
+//               Expanded(
+//                 child: ListView(
+//                   children: const <Widget>[
+//                     Text(
+//                       'You have pushed the button this many times:',
+//                     ),
+//                     SizedBox(
+//                       height: 10.0,
+//                     ),
+//                     MySquare(),
+//                     MySquare(),
+//                     MySquare(),
+//                     FieldWidget(
+//                       question: '',
+//                       labelText: 'Family Head ID',
+//                       hintText: 'Enter Text Here',
+//                       dataType: 'number',
+//                       options: [],
+//                     ),
+//                     FieldWidget(
+//                       question: '32. asda',
+//                       labelText: 'Family Head ID',
+//                       hintText: 'Enter Text Here',
+//                       dataType: 'text',
+//                       options: [],
+//                     ),
+//                     FieldWidget(
+//                       question: '',
+//                       options: ['1', '2'],
+//                     ),
+//                     FieldWidget(
+//                       question: '1. asda',
+//                       options: ['1', '2'],
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 
 // class ScrollableTabs extends StatelessWidget {

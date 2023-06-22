@@ -47,33 +47,10 @@ class _TestingScreenState extends State<TestingScreen> {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    const FieldWidget(
-                      question: '',
-                      labelText: 'Family Head ID',
-                      hintText: 'Enter Text Here',
-                      dataType: 'number',
-                      options: [],
-                    ),
-                    const FieldWidget(
-                      question: '32. asda',
-                      labelText: 'Family Head ID',
-                      hintText: 'Enter Text Here',
-                      dataType: 'text',
-                      options: [],
-                    ),
-                    const FieldWidget(
-                      question: '',
-                      options: ['1', '2'],
-                    ),
-                    const FieldWidget(
-                      question: '1. asda',
-                      options: ['1', '2'],
-                    ),
                     AddContactNumberWidget(
                       context: context,
                       question: '4. Telephone/Cell-phone Service Provider.',
                     ),
-                    
                   ],
                 ),
               ),
