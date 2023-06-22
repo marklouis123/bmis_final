@@ -21,7 +21,7 @@ class FieldWidget extends StatefulWidget {
   final dynamic defaultValue;
   final List<String>? options;
   final String? question;
-  final Function()? onChange;
+  final Function(dynamic val)? onChange;
 
   @override
   State<FieldWidget> createState() => _FieldWidgetState();
@@ -60,6 +60,7 @@ class _FieldWidgetState extends State<FieldWidget> {
                             RegExp(r"^\d*\.?\d*$")),
                       ]
                     : [],
+                onChanged: widget.onChange,
               ),
             ),
           ],
@@ -77,11 +78,7 @@ class _FieldWidgetState extends State<FieldWidget> {
               isExpanded: true,
               itemHeight: 60,
               value: optionValue,
-              onChanged: (value) {
-                setState(() {
-                  optionValue = value!;
-                });
-              },
+              onChanged: widget.onChange,
               items:
                   widget.options!.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
@@ -129,6 +126,7 @@ class _FieldWidgetState extends State<FieldWidget> {
                             RegExp(r"^\d*\.?\d*$")),
                       ]
                     : [],
+                onChanged: widget.onChange,
               ),
             ),
           ],
@@ -159,11 +157,7 @@ class _FieldWidgetState extends State<FieldWidget> {
                     isExpanded: true,
                     itemHeight: 60,
                     value: optionValue,
-                    onChanged: (value) {
-                      setState(() {
-                        optionValue = value!;
-                      });
-                    },
+                    onChanged: widget.onChange,
                     items: widget.options!
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
