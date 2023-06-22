@@ -1,9 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:bmis_final/screens/add_contact_screen.dart';
 import 'package:bmis_final/widgets/contact_list.dart';
 import 'package:bmis_final/widgets/field_widget.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../application/Household.dart';
@@ -40,7 +38,7 @@ class MultipleEntryField extends StatelessWidget {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(bottom: 20),
+          margin: const EdgeInsets.only(bottom: 20),
           child: SingleChildScrollView(
               child: Material(
             elevation: 5,
@@ -52,14 +50,14 @@ class MultipleEntryField extends StatelessWidget {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Column(children: [
-                        ...List.generate(data.length == 0 ? 2 : data.length + 1,
+                        ...List.generate(data.isEmpty ? 2 : data.length + 1,
                             (index) {
                           if (index == 0) {
                             return Row(children: [
                               ...List.generate(
                                   fieldData['child_columns'].length, (index) {
                                 return Container(
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       color: Colors.white,
                                       boxShadow: [
                                         BoxShadow(
@@ -93,13 +91,13 @@ class MultipleEntryField extends StatelessWidget {
                               }),
                             ]);
                           }
-                          if (data.length == 0) {
+                          if (data.isEmpty) {
                             return Container(
                                 alignment: Alignment.center,
                                 height: 60,
                                 width:
                                     (MediaQuery.of(context).size.width - 128),
-                                child: Text(
+                                child: const Text(
                                   "No Data Available",
                                   textAlign: TextAlign.start,
                                 ));
@@ -131,7 +129,7 @@ class MultipleEntryField extends StatelessWidget {
                     children: List.generate(data.length + 1, (index) {
                       if (index == 0) {
                         return Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
@@ -142,19 +140,19 @@ class MultipleEntryField extends StatelessWidget {
                             ],
                           ),
                           alignment: Alignment.center,
-                          padding: EdgeInsets.symmetric(vertical: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
                           width: 64.0,
                           height: 60.0,
-                          child: Text(
+                          child: const Text(
                             "Action",
                             textAlign: TextAlign.center,
                           ),
                         );
                       }
-                      return Container(
+                      return SizedBox(
                           height: 60.0,
                           child: IconButton(
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.cancel,
                             ),
                             onPressed: () {},
@@ -181,8 +179,7 @@ class MultipleEntryField extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
             // margin: const EdgeInsets.only(top: 16.0),
-            minimumSize: const Size.fromHeight(50),
-            primary: const Color(0xff2B7A78),
+            minimumSize: const Size.fromHeight(50), backgroundColor: const Color(0xff2B7A78),
           ),
           child: const Text(
             'Add',
@@ -202,7 +199,7 @@ List<Widget> _buildCells(int count) {
       width: 120.0,
       height: 60.0,
       color: Colors.white,
-      margin: EdgeInsets.all(4.0),
+      margin: const EdgeInsets.all(4.0),
       child: Text("${index + 1}"),
     ),
   );
@@ -262,9 +259,8 @@ class _AddDataFormState extends State<AddDataForm> {
                   children: [
                     OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                          side: const BorderSide(
-                              width: 1, color: Color(0xffff3333)),
-                          primary: Theme.of(context).colorScheme.error),
+                          foregroundColor: Theme.of(context).colorScheme.error, side: const BorderSide(
+                              width: 1, color: Color(0xffff3333))),
                       child: const Text(
                         'Close',
                         style: TextStyle(fontSize: 18),
@@ -282,7 +278,7 @@ class _AddDataFormState extends State<AddDataForm> {
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: const Color(0xff2B7A78),
+                        backgroundColor: const Color(0xff2B7A78),
                       ),
                       child: const Text(
                         'Save',
@@ -293,20 +289,20 @@ class _AddDataFormState extends State<AddDataForm> {
                 ),
               ),
               Container(
-                  margin: EdgeInsets.symmetric(vertical: 20),
+                  margin: const EdgeInsets.symmetric(vertical: 20),
                   child: Center(
                       child: Text(widget.title,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold)))),
-              ...List.generate(this.widget.fieldData.length, (index) {
+              ...List.generate(widget.fieldData.length, (index) {
                 return FieldWidget(
                   question: '',
-                  labelText: this.widget.fieldData[index]['label'],
-                  hintText: this.widget.fieldData[index]['hintText'],
-                  dataType: this.widget.fieldData[index]['data_type'],
-                  options: [],
+                  labelText: widget.fieldData[index]['label'],
+                  hintText: widget.fieldData[index]['hintText'],
+                  dataType: widget.fieldData[index]['data_type'],
+                  options: const [],
                   onChange: (val) {
-                    tempData[this.widget.fieldData[index]['key']] = val;
+                    tempData[widget.fieldData[index]['key']] = val;
                   },
                   defaultValue: null,
                   placeHolder: '',
@@ -358,8 +354,7 @@ class _AddContactNumberWidgetState extends State<AddContactNumberWidget> {
           },
           style: ElevatedButton.styleFrom(
             // margin: const EdgeInsets.only(top: 16.0),
-            minimumSize: const Size.fromHeight(50),
-            primary: const Color(0xff2B7A78),
+            minimumSize: const Size.fromHeight(50), backgroundColor: const Color(0xff2B7A78),
           ),
           child: const Text(
             'Add',
@@ -397,7 +392,7 @@ class AddContactScreen extends StatelessWidget {
                 labelText: 'Service Provider',
                 hintText: 'Enter Text Here',
                 dataType: 'text',
-                options: [],
+                options: const [],
                 defaultValue: null,
                 onChange: (val) {},
                 placeHolder: '',
@@ -407,7 +402,7 @@ class AddContactScreen extends StatelessWidget {
                 labelText: 'Contact Number',
                 hintText: 'Enter Text Here',
                 dataType: 'phone',
-                options: [],
+                options: const [],
                 defaultValue: null,
                 onChange: (val) {},
                 placeHolder: '',
@@ -417,8 +412,7 @@ class AddContactScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(50),
-                    primary: const Color(0xff2B7A78),
+                    minimumSize: const Size.fromHeight(50), backgroundColor: const Color(0xff2B7A78),
                   ),
                   child: const Text(
                     'Add',

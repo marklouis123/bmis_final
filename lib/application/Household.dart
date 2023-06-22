@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class Household with ChangeNotifier {
   int _count = 0;
   int _currentTab = 0;
-  Map _documentData = {};
-  Map _project = {
+  final Map _documentData = {};
+  final Map _project = {
     "columns": [
       {
         "key": "family_identification",
@@ -1078,7 +1078,7 @@ class Household with ChangeNotifier {
       // }
     ],
   };
-  Map _column = {
+  final Map _column = {
     "key": "family_identification",
     "label": "Family Identification",
     "data_type": "section",
@@ -1160,7 +1160,7 @@ class Household with ChangeNotifier {
     }
   }
 
-  void onFieldChange(section, subsection, key, value, data_type) {
+  void onFieldChange(section, subsection, key, value, dataType) {
     if (!_documentData.containsKey(section)) {
       _documentData[section] = {};
     }
@@ -1168,12 +1168,13 @@ class Household with ChangeNotifier {
       _documentData[section][key] = value;
     } else {
       if (!(_documentData[section] as Map).containsKey(subsection)) {
-        if (data_type == "multi_entry") {
+        if (dataType == "multi_entry") {
           _documentData[section][subsection] = [];
-        } else
+        } else {
           _documentData[section][subsection] = {};
+        }
       }
-      if (data_type == "multi_entry") {
+      if (dataType == "multi_entry") {
         (_documentData[section][subsection] as List).add(value);
       } else {
         _documentData[section][subsection][key] = value;

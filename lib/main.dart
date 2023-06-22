@@ -1,16 +1,34 @@
 import 'package:bmis_final/application/Household.dart';
-import 'package:bmis_final/models/circle.dart';
-import 'package:bmis_final/models/square.dart';
 import 'package:bmis_final/presentation/pages/UpdateHouseholdPage.dart';
-import 'package:bmis_final/screens/testing_screen.dart';
-import 'package:bmis_final/widgets/add_contact_number_widget.dart';
-import 'package:bmis_final/widgets/contact_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:bmis_final/widgets/field_widget.dart';
-import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final directory = await getApplicationDocumentsDirectory();
+  Hive.init(directory.path);
+  var box = await Hive.openBox('testBox');
+
+  box.put('name', {'name': 'Fluffy', 'age': 4});
+
+  print('Name: ${box.get('name')['name']}');
+  // final collection = await BoxCollection.open(
+  //   'MyFirstFluffyBox', // Name of your database
+  //   {'cats', 'dogs'}, // Names of your boxes
+  //   path:
+  //       './', // Path where to store your boxes (Only used in Flutter / Dart IO)
+  // );
+  // final catsBox = collection.openBox<Map>('cats');
+
+  // // Put something in
+  // catsBox.put('fluffy', {'name': 'Fluffy', 'age': 4});
+  // catsBox.put('loki', {'name': 'Loki', 'age': 2});
+
+  // // Get values of type (immutable) Map?
+  // final loki = await catsBox.get('loki');
+  // print('Loki is ${loki?['age']} years old.');
   runApp(const MyApp());
 }
 
@@ -22,7 +40,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'BMIS Final',
       theme: ThemeData(
-          primaryColor: Color(0xff2a7a78),
+          primaryColor: const Color(0xff2a7a78),
           colorScheme: const ColorScheme(
               brightness: Brightness.light,
               primary: Color(0xff17252a),

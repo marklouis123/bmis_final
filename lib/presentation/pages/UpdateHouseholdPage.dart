@@ -11,10 +11,10 @@ class UpdateHouseholdPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xffdef2f1),
+        backgroundColor: const Color(0xffdef2f1),
         appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
-            title: Align(
+            title: const Align(
               alignment: Alignment.centerLeft,
               child: Text('HH-23277  Garces, Mark Louis'),
             ),
@@ -27,12 +27,12 @@ class UpdateHouseholdPage extends StatelessWidget {
             ),
             actions: <Widget>[
               Container(
-                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xff17252a),
-                      minimumSize: Size(88, 36),
-                      padding: EdgeInsets.symmetric(
+                      backgroundColor: const Color(0xff17252a),
+                      minimumSize: const Size(88, 36),
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 16,
                       ),
                       shape: const RoundedRectangleBorder(
@@ -40,7 +40,7 @@ class UpdateHouseholdPage extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {},
-                    child: Text('Update', style: TextStyle(fontSize: 16)),
+                    child: const Text('Update', style: TextStyle(fontSize: 16)),
                   ))
             ]),
         body: Container(
@@ -58,13 +58,13 @@ class UpdateHouseholdPage extends StatelessWidget {
                           .toUpperCase();
                       if (context.watch<Household>().current == index) {
                         return Container(
-                            margin: EdgeInsets.all(8.0),
+                            margin: const EdgeInsets.all(8.0),
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
                                       Theme.of(context).primaryColor,
-                                  minimumSize: Size(88, 36),
-                                  padding: EdgeInsets.symmetric(
+                                  minimumSize: const Size(88, 36),
+                                  padding: const EdgeInsets.symmetric(
                                     horizontal: 16,
                                   ),
                                   shape: const RoundedRectangleBorder(
@@ -77,20 +77,20 @@ class UpdateHouseholdPage extends StatelessWidget {
                                 },
                                 child: Text(
                                   tab,
-                                  style: TextStyle(fontSize: 16),
+                                  style: const TextStyle(fontSize: 16),
                                 )));
                       } else {
                         return Container(
-                          margin: EdgeInsets.all(8.0),
+                          margin: const EdgeInsets.all(8.0),
                           child: OutlinedButton(
                               style: OutlinedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                     horizontal: 16,
                                   ),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  side: BorderSide(
+                                  side: const BorderSide(
                                       color: Color(0xffc3d3d4), width: 4)),
                               onPressed: () {
                                 context.read<Household>().selectTab(index);
@@ -105,8 +105,8 @@ class UpdateHouseholdPage extends StatelessWidget {
                     })),
             Expanded(
               child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 8),
-                  child: HouseholdForm()),
+                  margin: const EdgeInsets.symmetric(horizontal: 8),
+                  child: const HouseholdForm()),
             )
           ],
         )));
@@ -128,8 +128,8 @@ class HouseholdForm extends StatelessWidget {
           ),
           elevation: 10,
           child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
               child: Column(
                   children: List.generate(
                       currentSection['child_columns'].length, (index) {
@@ -137,8 +137,8 @@ class HouseholdForm extends StatelessWidget {
                     'subsection') {
                   return Column(children: [
                     Container(
-                        margin: EdgeInsets.only(top: 35),
-                        color: Color(0xffdef2f1),
+                        margin: const EdgeInsets.only(top: 35),
+                        color: const Color(0xffdef2f1),
                         child: Row(
                           children: [
                             Container(
@@ -146,12 +146,12 @@ class HouseholdForm extends StatelessWidget {
                               height: 50,
                               color: Theme.of(context).primaryColor,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Text(
                               currentSection['child_columns'][index]['label'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xff17252a),
@@ -163,7 +163,7 @@ class HouseholdForm extends StatelessWidget {
                         currentSection['child_columns'][index]['child_columns']
                             .length, (i) {
                       return Container(
-                          margin: EdgeInsets.only(left: 10),
+                          margin: const EdgeInsets.only(left: 10),
                           child: FieldWidget(
                             question: '',
                             labelText: currentSection['child_columns'][index]

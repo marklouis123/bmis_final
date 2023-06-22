@@ -38,13 +38,13 @@ class _FieldWidgetState extends State<FieldWidget> {
             ? Container(
                 // margin: const EdgeInsets.only(bottom: 16.0),
                 padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(widget.question!,
+                child: Text(widget.question,
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 18.0,
                     )),
               )
-            : SizedBox(),
+            : const SizedBox(),
         widget.options.isEmpty
             ? Container(
                 // margin: const EdgeInsets.only(top: 16.0),
@@ -91,7 +91,7 @@ class _FieldWidgetState extends State<FieldWidget> {
                       });
                       widget.onChange(val);
                     },
-                    items: widget.options!.map<DropdownMenuItem>((value) {
+                    items: widget.options.map<DropdownMenuItem>((value) {
                       return DropdownMenuItem(
                         value: value,
                         child: Text(value),

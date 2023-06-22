@@ -28,7 +28,7 @@ class AddContactScreen extends StatelessWidget {
                 labelText: 'Service Provider',
                 hintText: 'Enter Text Here',
                 dataType: 'text',
-                options: [],
+                options: const [],
                 defaultValue: null,
                 onChange: (val) {},
                 placeHolder: '',
@@ -38,7 +38,7 @@ class AddContactScreen extends StatelessWidget {
                 labelText: 'Contact Number',
                 hintText: 'Enter Text Here',
                 dataType: 'phone',
-                options: [],
+                options: const [],
                 defaultValue: null,
                 onChange: (val) {},
                 placeHolder: '',
@@ -48,8 +48,7 @@ class AddContactScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(50),
-                    primary: const Color(0xff2B7A78),
+                    minimumSize: const Size.fromHeight(50), backgroundColor: const Color(0xff2B7A78),
                   ),
                   child: const Text(
                     'Add',
