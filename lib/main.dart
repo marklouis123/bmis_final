@@ -1,9 +1,12 @@
 import 'package:bmis_final/application/Household.dart';
+import 'package:bmis_final/presentation/components/ScrollableTab.dart';
 import 'package:bmis_final/presentation/pages/UpdateHouseholdPage.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+
+import 'config/householdConfig.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,7 +58,7 @@ class MyApp extends StatelessWidget {
               onSurface: Color(0xff17252a))),
       home: MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => Household()),
+          ChangeNotifierProvider(create: (_) => Household(setup)),
         ],
         child: const UpdateHouseholdPage(),
       ),

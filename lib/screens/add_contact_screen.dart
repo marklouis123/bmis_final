@@ -23,32 +23,13 @@ class AddContactScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              FieldWidget(
-                question: '',
-                labelText: 'Service Provider',
-                hintText: 'Enter Text Here',
-                dataType: 'text',
-                options: const [],
-                defaultValue: null,
-                onChange: (val) {},
-                placeHolder: '',
-              ),
-              FieldWidget(
-                question: '',
-                labelText: 'Contact Number',
-                hintText: 'Enter Text Here',
-                dataType: 'phone',
-                options: const [],
-                defaultValue: null,
-                onChange: (val) {},
-                placeHolder: '',
-              ),
               Container(
                 margin: const EdgeInsets.only(top: 16.0),
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(50), backgroundColor: const Color(0xff2B7A78),
+                    minimumSize: const Size.fromHeight(50),
+                    backgroundColor: const Color(0xff2B7A78),
                   ),
                   child: const Text(
                     'Add',

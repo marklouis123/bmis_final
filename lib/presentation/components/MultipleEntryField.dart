@@ -1,4 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:ffi';
+
+import 'package:bmis_final/models/BMISFormField.dart';
 import 'package:flutter/material.dart';
 import 'package:bmis_final/widgets/contact_list.dart';
 import 'package:bmis_final/widgets/field_widget.dart';
@@ -15,27 +18,56 @@ class MultipleEntryField extends StatelessWidget {
   });
 
   final BuildContext mainContext;
-  final Map fieldData;
+  final BMISFormField fieldData;
   final String section;
 
   @override
   Widget build(BuildContext context) {
     var data = mainContext
         .watch<Household>()
-        .getMultiEntryValue(section, fieldData['key']);
+        .getMultiEntryValue(section, fieldData.key);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          margin: const EdgeInsets.only(top: 16.0),
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Text(
-            fieldData['label'],
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 18.0,
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.only(top: 16.0),
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Text(
+                  fieldData.label,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
             ),
-          ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  backgroundColor: Theme.of(context).primaryColor),
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    isDismissible: false,
+                    isScrollControlled: true,
+                    builder: (context) => Padding(
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: AddDataForm(
+                            mainContext: mainContext,
+                            fieldData: fieldData.childColumns as List,
+                            title: fieldData.label,
+                            section: section,
+                            subsection: fieldData.key,
+                          ),
+                        ));
+              },
+              child: const Icon(Icons.add),
+            ),
+          ],
         ),
         Container(
           margin: const EdgeInsets.only(bottom: 20),
@@ -54,8 +86,8 @@ class MultipleEntryField extends StatelessWidget {
                             (index) {
                           if (index == 0) {
                             return Row(children: [
-                              ...List.generate(
-                                  fieldData['child_columns'].length, (index) {
+                              ...List.generate(fieldData.childColumns.length,
+                                  (index) {
                                 return Container(
                                     decoration: const BoxDecoration(
                                       color: Colors.white,
@@ -68,24 +100,23 @@ class MultipleEntryField extends StatelessWidget {
                                       ],
                                     ),
                                     alignment: Alignment.center,
-                                    // alignment: Alignment.center,
-                                    // decoration: BoxDecoration(
-                                    //     color: Colors.transparent,
-                                    //     border: Border(
-                                    //         right: BorderSide(
-                                    //             width: 0.5,
-                                    //             color: Colors.grey))),
                                     height: 60,
-                                    width: fieldData['child_columns'].length > 2
-                                        ? MediaQuery.of(context).size.width /
-                                                2 -
-                                            80
-                                        : MediaQuery.of(context).size.width /
-                                                2 -
-                                            62,
+                                    width: fieldData.childColumns.length == 1
+                                        ? MediaQuery.of(context).size.width -
+                                            124
+                                        : fieldData.childColumns.length > 2
+                                            ? MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2 -
+                                                80
+                                            : MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2 -
+                                                62,
                                     child: Text(
-                                      fieldData['child_columns'][index]
-                                          ['label'],
+                                      fieldData.childColumns[index]['label'],
                                       textAlign: TextAlign.center,
                                     ));
                               }),
@@ -105,17 +136,17 @@ class MultipleEntryField extends StatelessWidget {
 
                           return Row(
                               children: List.generate(
-                                  fieldData['child_columns'].length, (i) {
+                                  fieldData.childColumns.length, (i) {
                             return Container(
                                 alignment: Alignment.center,
                                 height: 60.0,
-                                width: fieldData['child_columns'].length > 2
+                                width: fieldData.childColumns.length > 2
                                     ? MediaQuery.of(context).size.width / 2 - 80
                                     : MediaQuery.of(context).size.width / 2 -
                                         62,
                                 child: Text(
                                   data[index - 1]
-                                      [fieldData['child_columns'][i]['key']],
+                                      [fieldData.childColumns[i]['key']],
                                   textAlign: TextAlign.center,
                                 ));
                           }));
@@ -151,40 +182,105 @@ class MultipleEntryField extends StatelessWidget {
                       }
                       return SizedBox(
                           height: 60.0,
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.cancel,
-                            ),
-                            onPressed: () {},
-                          ));
+                          child: PopupMenuButton(
+                              itemBuilder: (BuildContext context) =>
+                                  <PopupMenuEntry<String>>[
+                                    PopupMenuItem<String>(
+                                      value: "edit",
+                                      child: ListTile(
+                                        title: Text('Update Entry'),
+                                        leading: Icon(Icons.edit),
+                                      ),
+                                      onTap: () {
+                                        Future.delayed(
+                                                Duration(milliseconds: 100))
+                                            .then((value) {
+                                          showModalBottomSheet(
+                                              context: mainContext,
+                                              isDismissible: false,
+                                              isScrollControlled: true,
+                                              builder: (context) => Padding(
+                                                    padding: EdgeInsets.only(
+                                                        bottom: MediaQuery.of(
+                                                                context)
+                                                            .viewInsets
+                                                            .bottom),
+                                                    child: AddDataForm(
+                                                      edit: true,
+                                                      index: index - 1,
+                                                      initialValue:
+                                                          data[index - 1],
+                                                      mainContext: mainContext,
+                                                      fieldData: fieldData
+                                                          .childColumns as List,
+                                                      title: fieldData.label,
+                                                      section: section,
+                                                      subsection: fieldData.key,
+                                                    ),
+                                                  ));
+                                        });
+                                      },
+                                    ),
+                                    PopupMenuItem<String>(
+                                      value: 'delete',
+                                      child: ListTile(
+                                        title: Text('Delete'),
+                                        leading: Icon(
+                                          Icons.delete,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .error,
+                                        ),
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext ctx) {
+                                                return AlertDialog(
+                                                  title: const Text(
+                                                      'Please Confirm'),
+                                                  content: const Text(
+                                                      'Are you sure to delete this item?'),
+                                                  actions: [
+                                                    // The "Yes" button
+                                                    TextButton(
+                                                        onPressed: () {
+                                                          // Remove the box
+                                                          context
+                                                              .read<Household>()
+                                                              .deleteMultiFieldEntry(
+                                                                  section,
+                                                                  fieldData.key,
+                                                                  index - 1);
+                                                          // Close the dialog
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child:
+                                                            const Text('Yes')),
+                                                    TextButton(
+                                                        onPressed: () {
+                                                          // Close the dialog
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: const Text('No'))
+                                                  ],
+                                                );
+                                              });
+                                        },
+                                      ),
+                                    ),
+                                  ]));
                     }),
                   ),
                 ],
               ),
             ),
           )),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            showModalBottomSheet(
-                context: context,
-                isDismissible: false,
-                builder: (context) => AddDataForm(
-                      mainContext: mainContext,
-                      fieldData: fieldData['child_columns'] as List,
-                      title: fieldData['label'],
-                      section: section,
-                      subsection: fieldData['key'],
-                    ));
-          },
-          style: ElevatedButton.styleFrom(
-            // margin: const EdgeInsets.only(top: 16.0),
-            minimumSize: const Size.fromHeight(50), backgroundColor: const Color(0xff2B7A78),
-          ),
-          child: const Text(
-            'Add',
-            style: TextStyle(fontSize: 18),
-          ),
         ),
       ],
     );
@@ -217,12 +313,18 @@ List<Widget> _buildRows(int count) {
 class AddDataForm extends StatefulWidget {
   const AddDataForm(
       {super.key,
+      this.edit = false,
+      this.index = 0,
+      this.initialValue = const {},
       required this.fieldData,
       required this.title,
       required this.section,
       required this.subsection,
       required this.mainContext});
 
+  final bool edit;
+  final int index;
+  final Map initialValue;
   final BuildContext mainContext;
   final List fieldData;
   final String section;
@@ -238,6 +340,7 @@ class _AddDataFormState extends State<AddDataForm> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.initialValue);
     return GestureDetector(
       child: Container(
         color: const Color(0xff747474),
@@ -252,6 +355,7 @@ class _AddDataFormState extends State<AddDataForm> {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 child: Row(
@@ -259,7 +363,8 @@ class _AddDataFormState extends State<AddDataForm> {
                   children: [
                     OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                          foregroundColor: Theme.of(context).colorScheme.error, side: const BorderSide(
+                          foregroundColor: Theme.of(context).colorScheme.error,
+                          side: const BorderSide(
                               width: 1, color: Color(0xffff3333))),
                       child: const Text(
                         'Close',
@@ -274,7 +379,9 @@ class _AddDataFormState extends State<AddDataForm> {
                             widget.subsection,
                             null,
                             tempData,
-                            "multi_entry");
+                            "multi_entry",
+                            index: widget.index,
+                            isUpdate: widget.edit);
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
@@ -288,24 +395,31 @@ class _AddDataFormState extends State<AddDataForm> {
                   ],
                 ),
               ),
-              Container(
-                  margin: const EdgeInsets.symmetric(vertical: 20),
-                  child: Center(
-                      child: Text(widget.title,
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)))),
+              widget.title.isNotEmpty
+                  ? Container(
+                      margin: const EdgeInsets.symmetric(vertical: 20),
+                      child: Center(
+                          child: Text(widget.title,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ))))
+                  : SizedBox(),
               ...List.generate(widget.fieldData.length, (index) {
                 return FieldWidget(
                   question: '',
                   labelText: widget.fieldData[index]['label'],
-                  hintText: widget.fieldData[index]['hintText'],
+                  hintText: widget.fieldData[index]['hint_text'],
                   dataType: widget.fieldData[index]['data_type'],
                   options: const [],
                   onChange: (val) {
                     tempData[widget.fieldData[index]['key']] = val;
                   },
-                  defaultValue: null,
+                  defaultValue:
+                      widget.initialValue[widget.fieldData[index]['key']],
                   placeHolder: '',
+                  conditional_fields: {},
                 );
               }),
             ],
@@ -316,115 +430,42 @@ class _AddDataFormState extends State<AddDataForm> {
   }
 }
 
-class AddContactNumberWidget extends StatefulWidget {
-  const AddContactNumberWidget({
-    Key? key,
-    this.question,
-    this.context,
-  }) : super(key: key);
-  final String? question;
-  final BuildContext? context;
+class PopupMenuExample extends StatefulWidget {
+  const PopupMenuExample({super.key});
 
   @override
-  State<AddContactNumberWidget> createState() => _AddContactNumberWidgetState();
+  State<PopupMenuExample> createState() => _PopupMenuExampleState();
 }
 
-class _AddContactNumberWidgetState extends State<AddContactNumberWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.only(top: 16.0),
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Text(
-            widget.question!,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 18.0,
-            ),
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            showModalBottomSheet(
-                context: widget.context!,
-                builder: (context) => const AddContactScreen());
-          },
-          style: ElevatedButton.styleFrom(
-            // margin: const EdgeInsets.only(top: 16.0),
-            minimumSize: const Size.fromHeight(50), backgroundColor: const Color(0xff2B7A78),
-          ),
-          child: const Text(
-            'Add',
-            style: TextStyle(fontSize: 18),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class AddContactScreen extends StatelessWidget {
-  const AddContactScreen({Key? key}) : super(key: key);
+class _PopupMenuExampleState extends State<PopupMenuExample> {
+  var menuOptions = ["Edit", "Delete"];
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Container(
-        color: const Color(0xff747474),
-        child: Container(
-          padding: const EdgeInsets.all(20.0),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
+    return Scaffold(
+      appBar: AppBar(title: const Text('PopupMenuButton')),
+      body: Center(
+        child: PopupMenuButton<String>(
+          // Callback that sets the selected popup menu item.
+
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+            const PopupMenuItem<String>(
+              value: "edit",
+              child: ListTile(
+                title: Text('Primary text'),
+                leading: Icon(Icons.label),
+                trailing: Text('Metadata'),
+              ),
             ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              FieldWidget(
-                question: '',
-                labelText: 'Service Provider',
-                hintText: 'Enter Text Here',
-                dataType: 'text',
-                options: const [],
-                defaultValue: null,
-                onChange: (val) {},
-                placeHolder: '',
+            const PopupMenuItem<String>(
+              value: 'delete',
+              child: ListTile(
+                title: Text('Primary text'),
+                leading: Icon(Icons.label),
+                trailing: Text('Metadata'),
               ),
-              FieldWidget(
-                question: '',
-                labelText: 'Contact Number',
-                hintText: 'Enter Text Here',
-                dataType: 'phone',
-                options: const [],
-                defaultValue: null,
-                onChange: (val) {},
-                placeHolder: '',
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 16.0),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(50), backgroundColor: const Color(0xff2B7A78),
-                  ),
-                  child: const Text(
-                    'Add',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-              ),
-              const Expanded(
-                child: ContactList(),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
