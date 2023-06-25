@@ -1,5 +1,6 @@
 import 'package:bmis_final/application/Household.dart';
 import 'package:bmis_final/presentation/components/ScrollableTab.dart';
+import 'package:bmis_final/presentation/pages/HouseholdPage.dart';
 import 'package:bmis_final/presentation/pages/UpdateHouseholdPage.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -56,12 +57,11 @@ class MyApp extends StatelessWidget {
               onBackground: Color(0xff17252a),
               surface: Color(0xff17252a),
               onSurface: Color(0xff17252a))),
-      home: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => Household(setup)),
-        ],
-        child: const UpdateHouseholdPage(),
-      ),
+      home: MultiProvider(providers: [
+        ChangeNotifierProvider(create: (_) => Household(setup)),
+      ], child: HouseholdPage()
+          // child: const UpdateHouseholdPage(),
+          ),
     );
   }
 }
