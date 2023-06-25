@@ -1,4 +1,6 @@
+import 'package:bmis_final/application/CitizenProvider.dart';
 import 'package:bmis_final/application/Household.dart';
+import 'package:bmis_final/config/seeder/CitizenSeeder.dart';
 import 'package:bmis_final/presentation/components/ScrollableTab.dart';
 import 'package:bmis_final/presentation/pages/HouseholdPage.dart';
 import 'package:bmis_final/presentation/pages/UpdateHouseholdPage.dart';
@@ -13,11 +15,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);
-  var box = await Hive.openBox('testBox');
+  var citizenBox = await Hive.openBox('citizens');
 
-  box.put('name', {'name': 'Fluffy', 'age': 4});
+  // List<Map<String, dynamic>> list = CitizenSeeder.generateCitizen(200);
 
-  print('Name: ${box.get('name')['name']}');
+  // citizenBox.put('list', list);
+
+  // print('Name: ${citizenBox.get('list')}');
   // final collection = await BoxCollection.open(
   //   'MyFirstFluffyBox', // Name of your database
   //   {'cats', 'dogs'}, // Names of your boxes
@@ -59,6 +63,7 @@ class MyApp extends StatelessWidget {
               onSurface: Color(0xff17252a))),
       home: MultiProvider(providers: [
         ChangeNotifierProvider(create: (_) => Household(setup)),
+        ChangeNotifierProvider(create: (_) => CitizenProvider()),
       ], child: HouseholdPage()
           // child: const UpdateHouseholdPage(),
           ),

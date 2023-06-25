@@ -1913,11 +1913,6 @@ class Household with ChangeNotifier {
     return list;
   }
 
-  void increment() {
-    _count++;
-    notifyListeners();
-  }
-
   void selectTab(index) {
     _currentTab = index;
     notifyListeners();
@@ -1988,4 +1983,10 @@ class Household with ChangeNotifier {
     print(_documentData);
     notifyListeners();
   }
+
+  void saveDocument() {}
+
+  void updateDocument() {}
+
+  void readDocument() {}
 }

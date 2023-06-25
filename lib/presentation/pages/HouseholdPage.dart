@@ -1,4 +1,6 @@
+import 'package:bmis_final/application/CitizenProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HouseholdPage extends StatelessWidget {
   const HouseholdPage({super.key});
@@ -44,7 +46,10 @@ class HouseholdPage extends StatelessWidget {
                     ),
                     Expanded(
                       child: ListView.builder(
-                          itemCount: 20,
+                          itemCount: context
+                              .watch<CitizenProvider>()
+                              .citizenseList
+                              .length,
                           itemBuilder: ((context, index) => Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 4.0),
@@ -59,7 +64,9 @@ class HouseholdPage extends StatelessWidget {
                                     child: Center(
                                       child: ListTile(
                                           title: Text(
-                                        "HH-1234 Mark Louis",
+                                        householdText(context
+                                            .watch<CitizenProvider>()
+                                            .citizenseList[index]),
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 22,
@@ -72,5 +79,15 @@ class HouseholdPage extends StatelessWidget {
                 ),
               )),
         ));
+  }
+
+  String householdText(Map citizenData) {
+    print("Citisense Data: ");
+    print(citizenData);
+    return citizenData['id'].toString() +
+        '-' +
+        citizenData['last_name'].toString() +
+        ", " +
+        citizenData['first_name'];
   }
 }
