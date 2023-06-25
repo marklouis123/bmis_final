@@ -1,27 +1,32 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+
+import '../application/Household.dart';
 
 class FieldWidget extends StatefulWidget {
   const FieldWidget({
     Key? key,
-    this.dataType,
-    this.placeHolder,
-    this.labelText,
-    this.hintText,
-    this.defaultValue,
-    this.options,
-    this.question,
-    this.onChange,
+    required this.dataType,
+    required this.placeHolder,
+    required this.labelText,
+    required this.hintText,
+    required this.defaultValue,
+    required this.options,
+    required this.question,
+    required this.onChange,
+    required this.conditional_fields,
   }) : super(key: key);
-  final String? dataType;
-  final String? placeHolder;
-  final String? labelText;
-  final String? hintText;
+  final String dataType;
+  final String placeHolder;
+  final String labelText;
+  final String hintText;
   final dynamic defaultValue;
-  final List<String>? options;
-  final String? question;
-  final Function(dynamic value)? onChange;
+  final List<dynamic> options;
+  final String question;
+  final Function(dynamic val) onChange;
+  final Map conditional_fields;
 
   @override
   State<FieldWidget> createState() => _FieldWidgetState();
@@ -29,145 +34,95 @@ class FieldWidget extends StatefulWidget {
 
 class _FieldWidgetState extends State<FieldWidget> {
   String? optionValue;
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.question!.isEmpty) {
-      if (widget.options!.isEmpty) {
-        return Column(
-          children: [
-            Container(
-              // margin: const EdgeInsets.only(top: 16.0),
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: TextField(
-                onChanged: widget.onChange,
-                decoration: InputDecoration(
-                  hintText: widget.hintText,
-                  labelText: widget.labelText,
-                  border: const OutlineInputBorder(),
-                  fillColor: Colors.white,
-                  filled: true,
-                ),
-                keyboardType: widget.dataType == 'text'
-                    ? TextInputType.text
-                    : widget.dataType == 'integer'
-                        ? TextInputType.number
-                        : widget.dataType == 'phone'
-                            ? TextInputType.phone
-                            : TextInputType.text,
-              ),
-            ),
-          ],
-        );
-      } else {
-        return Container(
-          margin: const EdgeInsets.only(top: 16.0),
-          // padding: const EdgeInsets.only(bottom: 8.0),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(color: Colors.black)),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              isExpanded: true,
-              itemHeight: 60,
-              hint:Text(widget.hintText!),
-              value: optionValue,
-              onChanged: (value) {
-                setState(() {
-                  optionValue = value!;
-                });
-              },
-              items:
-                  widget.options!.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-          ),
-        );
-      }
-    } else {
-      if (widget.options!.isEmpty) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Text(
-                widget.question!,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 18.0,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: widget.hintText,
-                  labelText: widget.labelText,
-                  border: const OutlineInputBorder(),
-                  fillColor: Colors.white,
-                  filled: true,
-                ),
-                keyboardType: widget.dataType == 'text'
-                    ? TextInputType.text
-                    : widget.dataType == 'integer'
-                        ? TextInputType.number
-                        : TextInputType.text,
-              ),
-            ),
-          ],
-        );
-      } else {
-        return Container(
-          margin: const EdgeInsets.only(top: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                // margin: const EdgeInsets.only(bottom: 16.0),
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(widget.question!,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0,
-                    )),
-              ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4.0),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: Colors.black)),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    isExpanded: true,
-                    itemHeight: 60,
-                    value: optionValue,
-                    onChanged: (value) {
-                      setState(() {
-                        optionValue = value!;
-                      });
-                    },
-                    items: widget.options!
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      }
-    }
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        children: [
+          !widget.question.isEmpty
+              ? Container(
+                  // margin: const EdgeInsets.only(top: 16.0),
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Text(widget.question,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold)),
+                )
+              : const SizedBox(),
+          widget.dataType == 'multiple_select'
+              ? Text("Multiple Select")
+              : widget.options.isEmpty
+                  ? Container(
+                      // margin: const EdgeInsets.only(top: 16.0),
+                      child: TextFormField(
+                        initialValue: widget.defaultValue,
+                        decoration: InputDecoration(
+                          hintText: widget.hintText,
+                          labelText: widget.labelText,
+                          border: const OutlineInputBorder(),
+                          fillColor: Colors.white,
+                          filled: true,
+                        ),
+                        keyboardType: widget.dataType == 'text'
+                            ? TextInputType.text
+                            : widget.dataType == 'number'
+                                ? TextInputType.number
+                                : widget.dataType == 'phone'
+                                    ? TextInputType.phone
+                                    : TextInputType.text,
+                        inputFormatters: widget.dataType == 'number'
+                            ? [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r"^\d*\.?\d*$")),
+                              ]
+                            : [],
+                        onChanged: widget.onChange,
+                      ),
+                    )
+                  : Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(color: Colors.black)),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<dynamic>(
+                          hint: Text(
+                            widget.labelText,
+                          ),
+                          isExpanded: true,
+                          itemHeight: 60,
+                          value: optionValue,
+                          onChanged: (val) {
+                            setState(() {
+                              optionValue = val;
+                            });
+                            print(optionValue);
+                            print(widget.conditional_fields);
+                            widget.onChange(val);
+                          },
+                          items: widget.options.map<DropdownMenuItem>((value) {
+                            return DropdownMenuItem(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+        ],
+      ),
+    );
   }
 }

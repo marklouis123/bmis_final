@@ -72,45 +72,12 @@ class AddContactScreen extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 16),
-                child: Center(
-                  child: Text(
-                    newServiceProvider['label'],
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: ListView(
-                  // crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    ...List.generate(newServiceProvider['child_columns'].length,
-                        (index) {
-                      return FieldWidget(
-                        question: newServiceProvider['child_columns'][index]
-                            ['label'],
-                        labelText: newServiceProvider['child_columns'][index]
-                            ['label'],
-                        hintText: 'Enter Text Here',
-                        dataType: newServiceProvider['child_columns'][index]
-                            ['data_type'],
-                        options: newServiceProvider['child_columns'][index]
-                            ['options'],
-                      );
-                    }),
-                  ],
-                ),
-              ),
-              Container(
                 margin: const EdgeInsets.only(top: 16.0),
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),
-                    primary: const Color(0xff2B7A78),
+                    backgroundColor: const Color(0xff2B7A78),
                   ),
                   child: const Text(
                     'Add',
