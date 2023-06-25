@@ -220,19 +220,21 @@ Map setup = {
           "initialValues": "",
           "child_columns": [],
           "conditional_fields": {
-            "Extended Family": {
-              "parent_key": "household_condition",
-              "key": "household_condition_extended",
-              "label": "Extended Family ID",
-              "hint_text": "",
-              "data_type": "text",
-              "question": "HeadID of main Family",
-              "sublabel": "",
-              "options": [],
-              "conditional_fields": {},
-              "initialValues": "",
-              "child_columns": []
-            }
+            "Extended Family": [
+              {
+                "parent_key": "household_condition",
+                "key": "household_condition_extended",
+                "label": "Extended Family ID",
+                "hint_text": "",
+                "data_type": "text",
+                "question": "HeadID of main Family",
+                "sublabel": "",
+                "options": [],
+                "conditional_fields": {},
+                "initialValues": "",
+                "child_columns": []
+              }
+            ]
           }
         },
         {
@@ -500,32 +502,34 @@ Map setup = {
           "sublabel": "(May tanim na halamang gamot)?",
           "options": ["Yes", "No"],
           "conditional_fields": {
-            "Yes": {
-              "parent_key": "plants_herbal_plant",
-              "key": "plants_herbal_plant_true",
-              "label": "",
-              "hint_text": "",
-              "data_type": "multi_entry",
-              "question": "10. What herbal plants?",
-              "sublabel": "(Kung Oo, anong uri ng halamang gamot)?",
-              "options": [],
-              "conditional_fields": {},
-              "initialValues": "",
-              "child_columns": [
-                {
-                  "parent_key": "plants_herbal_plant_true",
-                  "key": "plants_herbal_plant_true_name",
-                  "label": "Herbal Plant",
-                  "hint_text": "Enter Herbal Plant",
-                  "data_type": "text",
-                  "question": "",
-                  "sublabel": "",
-                  "options": [],
-                  "conditional_fields": {},
-                  "initialValues": ""
-                }
-              ]
-            }
+            "Yes": [
+              {
+                "parent_key": "plants_herbal_plant",
+                "key": "plants_herbal_plant_true",
+                "label": "",
+                "hint_text": "",
+                "data_type": "multi_entry",
+                "question": "10. What herbal plants?",
+                "sublabel": "(Kung Oo, anong uri ng halamang gamot)?",
+                "options": [],
+                "conditional_fields": {},
+                "initialValues": "",
+                "child_columns": [
+                  {
+                    "parent_key": "plants_herbal_plant_true",
+                    "key": "plants_herbal_plant_true_name",
+                    "label": "Herbal Plant",
+                    "hint_text": "Enter Herbal Plant",
+                    "data_type": "text",
+                    "question": "",
+                    "sublabel": "",
+                    "options": [],
+                    "conditional_fields": {},
+                    "initialValues": ""
+                  }
+                ]
+              }
+            ]
           },
           "initialValues": ""
         },
@@ -574,7 +578,7 @@ Map setup = {
                 "question": "",
                 "sublabel": "",
                 "options": [],
-                "conditional_fields": "TRUE",
+                "conditional_fields": {},
                 "initialValues": ""
               },
               {
@@ -586,7 +590,7 @@ Map setup = {
                 "question": "Natural",
                 "sublabel": "",
                 "options": [],
-                "conditional_fields": "TRUE",
+                "conditional_fields": {},
                 "initialValues": "",
                 "child_columns": [
                   {
@@ -620,7 +624,7 @@ Map setup = {
                 "question": "Artificial",
                 "sublabel": "",
                 "options": [],
-                "conditional_fields": "TRUE",
+                "conditional_fields": {},
                 "initialValues": "",
                 "child_columns": [
                   {
@@ -1062,30 +1066,45 @@ Map setup = {
           "label": "",
           "hint_text": "",
           "data_type": "text",
-          "question": "36. May miyembro ba sa pamilya nga naapil sa krimen?",
+          "question": "May miyembro ba sa pamilya nga naapil sa krimen?",
           "sublabel": "",
           "options": ["Meron", "Wala"],
           "initialValues": "",
           "conditional_fields": {
-            "Meron": {
-              "parent_key": "family_member_crime_involvement",
-              "key": "crime_type",
-              "label": "",
-              "hint_text": "",
-              "data_type": "text",
-              "question": "37. Kung naa, unsay klase sa krimen?",
-              "sublabel": "",
-              "options": [
-                "Assault (sinugod/inatake)",
-                "Battery (binugbog)",
-                "False Imprisonment (nakulong ng walangkasalanan)",
-                "Kidnapping (pagdukot)",
-                "Homicide – crimes such as first and second degree, murder, involuntary manslaughter, and vehicular homicide (pagpatay)",
-                "Rape, statutory rape, sexual assault and other offenses of a sexual nature",
-                "Illegal Drugs"
-              ],
-              "initialValues": ""
-            }
+            "Meron": [
+              {
+                "parent_key": "family_member_crime_involvement",
+                "key": "crime_type",
+                "label": "",
+                "hint_text": "",
+                "data_type": "text",
+                "question": "37. Kung naa, unsay klase sa krimen?",
+                "sublabel": "",
+                "options": [
+                  "Assault (sinugod/inatake)",
+                  "Battery (binugbog)",
+                  "False Imprisonment (nakulong ng walangkasalanan)",
+                  "Kidnapping (pagdukot)",
+                  "Homicide – crimes such as first and second degree, murder, involuntary manslaughter, and vehicular homicide (pagpatay)",
+                  "Rape, statutory rape, sexual assault and other offenses of a sexual nature",
+                  "Illegal Drugs"
+                ],
+                "conditional_fields": {},
+                "initialValues": ""
+              },
+              {
+                "parent_key": "family_member_crime_involvement",
+                "key": "crime_location",
+                "label": "Place",
+                "hint_text": "Enter Place",
+                "data_type": "text",
+                "question": "38. Asa nahitabo ang krimen?",
+                "sublabel": "",
+                "options": [],
+                "conditional_fields": {},
+                "initialValues": ""
+              }
+            ]
           },
         }
       ]
@@ -1105,10 +1124,10 @@ Map setup = {
         {
           "parent_key": "agricultural_information",
           "key": "area_of_farmed_land",
-          "label": "",
+          "label": "Kabuuang laki ng lupang sinasaka at lugar:",
           "hint_text": "",
           "data_type": "multi_entry",
-          "question": "39. Kabuuang laki ng lupang sinasaka at lugar:",
+          "question": "Kabuuang laki ng lupang sinasaka at lugar:",
           "sublabel": "",
           "options": [],
           "conditional_fields": {},
@@ -1117,7 +1136,7 @@ Map setup = {
             {
               "parent_key": "area_of_farmed_land",
               "key": "area",
-              "label": "",
+              "label": "Lawak (Hektarya)",
               "hint_text": "Enter Text Here",
               "data_type": "number",
               "question": "Lawak (Hektarya)",
@@ -1129,7 +1148,7 @@ Map setup = {
             {
               "parent_key": "area_of_farmed_land",
               "key": "location",
-              "label": "",
+              "label": "Lugar ng lupang sinasaka",
               "hint_text": "Enter Text Here",
               "data_type": "text",
               "question": "Lugar ng lupang sinasaka",
@@ -1141,7 +1160,7 @@ Map setup = {
             {
               "parent_key": "area_of_farmed_land",
               "key": "status_of_ownership",
-              "label": "",
+              "label": "Kalagayan sa Pag-aari ng Lupang Sinasaka",
               "hint_text": "",
               "data_type": "text",
               "question": "Kalagayan sa Pag-aari ng Lupang Sinasaka",
@@ -1152,7 +1171,7 @@ Map setup = {
                   {
                     "parent_key": "status_of_ownership",
                     "key": "land_owner",
-                    "label": "",
+                    "label": "Kapag tenant, sino ang may-ari ng lupa",
                     "hint_text": "Enter Text Here",
                     "data_type": "text",
                     "question": "Kapag tenant, sino ang may-ari ng lupa",
@@ -1170,7 +1189,7 @@ Map setup = {
         {
           "parent_key": "agricultural_information",
           "key": "agricultural_products",
-          "label": "",
+          "label": "Agricultural/Fishery Products",
           "hint_text": "",
           "data_type": "multi_entry",
           "question": "Agricultural/Fishery Products",
@@ -1182,7 +1201,7 @@ Map setup = {
             {
               "parent_key": "agricultural_products",
               "key": "product",
-              "label": "",
+              "label": "Pananim/Produkto",
               "hint_text": "Enter Text Here",
               "data_type": "text",
               "question": "40. Pananim/Produkto",
@@ -1194,7 +1213,7 @@ Map setup = {
             {
               "parent_key": "agricultural_products",
               "key": "type_of_farm",
-              "label": "",
+              "label": "Uri ng Lupang Sinasaka",
               "hint_text": "",
               "data_type": "text",
               "question": "41. Uri ng Lupang Sinasaka",
@@ -1211,7 +1230,7 @@ Map setup = {
                   {
                     "parent_key": "type_of_farm",
                     "key": "type_of_farm_others",
-                    "label": "",
+                    "label": "If Others, specify:",
                     "hint_text": "Enter Text Here",
                     "data_type": "text",
                     "question": "If Others, specify:",
@@ -1227,7 +1246,7 @@ Map setup = {
             {
               "parent_key": "agricultural_products",
               "key": "land_area_per_product",
-              "label": "",
+              "label": "Lawak ng lupa bawat pananim:",
               "hint_text": "",
               "data_type": "",
               "question": "42. Lawak ng lupa bawat pananim:",
@@ -1263,7 +1282,7 @@ Map setup = {
             {
               "parent_key": "agricultural_products",
               "key": "location",
-              "label": "",
+              "label": "43. Lugar",
               "hint_text": "",
               "data_type": "text",
               "question": "43. Lugar",
@@ -1277,29 +1296,13 @@ Map setup = {
         {
           "parent_key": "agricultural_information",
           "key": "machineries_tally",
-          "label": "",
+          "label": "44. Uri ng Kagamitan/makinarya sa pagsasaka",
           "hint_text": "",
           "data_type": "multi_entry",
           "question": "44. Uri ng Kagamitan/makinarya sa pagsasaka",
           "sublabel": "(Agricultural Machineries/Equipment/ToolsOwned)",
           "options": [],
           "conditional_fields": {},
-          "initialValues": [
-            {"machinery": "Rice mill", "machinery_count": 0},
-            {"machinery": "4-wheel tractor", "machinery_count": 0},
-            {"machinery": "Feedmill", "machinery_count": 0},
-            {"machinery": "Sprayer (Knapsack)", "machinery_count": 0},
-            {"machinery": "Grain Drying Facility", "machinery_count": 0},
-            {"machinery": "Sprayer (Power)", "machinery_count": 0},
-            {"machinery": "Warehouse", "machinery_count": 0},
-            {"machinery": "Araro", "machinery_count": 0},
-            {"machinery": "Thresher", "machinery_count": 0},
-            {"machinery": "Suyod", "machinery_count": 0},
-            {"machinery": "Reaper", "machinery_count": 0},
-            {"machinery": "Waterpump", "machinery_count": 0},
-            {"machinery": "Corn Sheller", "machinery_count": 0},
-            {"machinery": "Hand tractor", "machinery_count": 0}
-          ],
           "child_columns": [
             {
               "parent_key": "machineries_tally",
@@ -1309,7 +1312,22 @@ Map setup = {
               "data_type": "text",
               "question": "",
               "sublabel": "",
-              "options": [],
+              "options": [
+                "Rice mill",
+                "4-wheel tractor",
+                "Feedmill",
+                "Sprayer (Knapsack)",
+                "Grain Drying Facility",
+                "Sprayer (Power)",
+                "Warehouse",
+                "Araro",
+                "Thresher",
+                "Suyod",
+                "Reaper",
+                "Waterpump",
+                "Corn Sheller",
+                "Hand tractor",
+              ],
               "conditional_fields": {},
               "initialValues": ""
             },
@@ -1330,32 +1348,13 @@ Map setup = {
         {
           "parent_key": "agricultural_information",
           "key": "farm_animals_raised",
-          "label": "",
+          "label": "45. Hayop na Pangkain na inaalagaan",
           "hint_text": "",
           "data_type": "multi_entry",
           "question": "45. Hayop na Pangkain na inaalagaan",
           "sublabel": "(Farm Animals Raised)",
           "options": [],
           "conditional_fields": {},
-          "initialValues": [
-            {"farm_animal": "Baboy (Barako)", "farm_animal_count": 0},
-            {"farm_animal": "Baboy (Inahin)", "farm_animal_count": 0},
-            {"farm_animal": "Baboy (Biik)", "farm_animal_count": 0},
-            {"farm_animal": "Baboy (Grower)", "farm_animal_count": 0},
-            {"farm_animal": "Baka", "farm_animal_count": 0},
-            {"farm_animal": "Bibi", "farm_animal_count": 0},
-            {"farm_animal": "Kabayo", "farm_animal_count": 0},
-            {"farm_animal": "Kalabaw", "farm_animal_count": 0},
-            {"farm_animal": "Kambing", "farm_animal_count": 0},
-            {"farm_animal": "Tupa", "farm_animal_count": 0},
-            {"farm_animal": "Pabo", "farm_animal_count": 0},
-            {"farm_animal": "Pugo", "farm_animal_count": 0},
-            {"farm_animal": "Itik", "farm_animal_count": 0},
-            {"farm_animal": "Manok (Layer)", "farm_animal_count": 0},
-            {"farm_animal": "Manok (Broiler)", "farm_animal_count": 0},
-            {"farm_animal": "Manok (Native)", "farm_animal_count": 0},
-            {"farm_animal": "Manok (Sasabungin)", "farm_animal_count": 0}
-          ],
           "child_columns": [
             {
               "parent_key": "farm_animals_raised",
@@ -1365,7 +1364,25 @@ Map setup = {
               "data_type": "text",
               "question": "",
               "sublabel": "",
-              "options": [],
+              "options": [
+                "Baboy (Barako)",
+                "Baboy (Inahin)",
+                "Baboy (Biik)",
+                "Baboy (Grower)",
+                "Baka",
+                "Bibi",
+                "Kabayo",
+                "Kalabaw",
+                "Kambing",
+                "Tupa",
+                "Pabo",
+                "Pugo",
+                "Itik",
+                "Manok (Layer)",
+                "Manok (Broiler)",
+                "Manok (Native)",
+                "Manok (Sasabungin)"
+              ],
               "conditional_fields": {},
               "initialValues": ""
             },
@@ -1386,22 +1403,13 @@ Map setup = {
         {
           "parent_key": "agricultural_information",
           "key": "pet_animals",
-          "label": "",
+          "label": "46. Pet Animals",
           "hint_text": "",
           "data_type": "multi_entry",
           "question": "46. Pet Animals",
           "sublabel": "",
           "options": [],
           "conditional_fields": {},
-          "initialValues": [
-            {"pet_animal": "Dog/Puppy", "pet_animal_count": 0},
-            {"pet_animal": "Cat/Kitten", "pet_animal_count": 0},
-            {"pet_animal": "Bird", "pet_animal_count": 0},
-            {"pet_animal": "Rabbit", "pet_animal_count": 0},
-            {"pet_animal": "Monkey", "pet_animal_count": 0},
-            {"pet_animal": "Snake", "pet_animal_count": 0},
-            {"pet_animal": "Fish", "pet_animal_count": 0}
-          ],
           "child_columns": [
             {
               "parent_key": "pet_animals",
@@ -1411,7 +1419,15 @@ Map setup = {
               "data_type": "text",
               "question": "",
               "sublabel": "",
-              "options": [],
+              "options": [
+                "Dog/Puppy",
+                "Cat/Kitten",
+                "Bird",
+                "Rabbit",
+                "Monkey",
+                "Snake",
+                "Fish"
+              ],
               "conditional_fields": {},
               "initialValues": ""
             },
@@ -1446,10 +1462,10 @@ Map setup = {
         {
           "parent_key": "fishery_and_nipa_production_information",
           "key": "fisheries_information",
-          "label": "",
+          "label": "Fisheries Information",
           "hint_text": "",
           "data_type": "multi_entry",
-          "question": "47. Fisheries Information",
+          "question": "Fisheries Information",
           "sublabel": "",
           "options": [],
           "conditional_fields": {},
@@ -1458,7 +1474,7 @@ Map setup = {
             {
               "parent_key": "fisheries_information",
               "key": "type_of_fish_content",
-              "label": "",
+              "label": "Uri ng laman ng Palaisdaan",
               "hint_text": "Enter Text Here",
               "data_type": "text",
               "question": "Uri ng laman ng Palaisdaan",
@@ -1470,7 +1486,7 @@ Map setup = {
             {
               "parent_key": "fisheries_information",
               "key": "number_of_fish_per_year",
-              "label": "",
+              "label": "Bilang ng inaalagaan bawat taon",
               "hint_text": "Enter Text Here",
               "data_type": "number",
               "question": "Bilang ng inaalagaan bawat taon",
@@ -1482,7 +1498,7 @@ Map setup = {
             {
               "parent_key": "fisheries_information",
               "key": "status_of_fishery",
-              "label": "",
+              "label": "Kalagayan ng palaisdaan",
               "hint_text": "",
               "data_type": "text",
               "question": "Kalagayan ng palaisdaan",
@@ -1494,7 +1510,7 @@ Map setup = {
             {
               "parent_key": "fisheries_information",
               "key": "type_of_water",
-              "label": "",
+              "label": "Uri ng palaisdaang inaalagaan",
               "hint_text": "",
               "data_type": "text",
               "question": "Uri ng palaisdaang inaalagaan",
@@ -1510,7 +1526,7 @@ Map setup = {
             {
               "parent_key": "fisheries_information",
               "key": "type_of_fishery",
-              "label": "",
+              "label": "Uri ng Palaisdaan",
               "hint_text": "",
               "data_type": "text",
               "question": "Uri ng Palaisdaan",
@@ -1522,7 +1538,7 @@ Map setup = {
             {
               "parent_key": "fisheries_information",
               "key": "land_area",
-              "label": "",
+              "label": "Kabuuang laki ng palaisdaan",
               "hint_text": "",
               "data_type": "number",
               "question": "Kabuuang laki ng palaisdaan",
@@ -1534,7 +1550,7 @@ Map setup = {
             {
               "parent_key": "fisheries_information",
               "key": "number_of_fish",
-              "label": "",
+              "label": "Bilang ng pitak o units ng palaisdaan",
               "hint_text": "",
               "data_type": "number",
               "question": "Bilang ng pitak o units ng palaisdaan",
@@ -1546,7 +1562,7 @@ Map setup = {
             {
               "parent_key": "fisheries_information",
               "key": "location",
-              "label": "",
+              "label": "Lugar",
               "hint_text": "Enter Text Here",
               "data_type": "text",
               "question": "Lugar",
@@ -1560,7 +1576,7 @@ Map setup = {
         {
           "parent_key": "fishery_and_nipa_production_information",
           "key": "fishing_vessel",
-          "label": "",
+          "label": "Fishing vessel",
           "hint_text": "",
           "data_type": "multi_entry",
           "question": "48. Fishing vessel",
@@ -1572,18 +1588,18 @@ Map setup = {
             {
               "parent_key": "fishing_vessel",
               "key": "vessel_type",
-              "label": "",
+              "label": "Vessel type:",
               "hint_text": "",
               "data_type": "text",
               "question": "Vessel type:",
               "sublabel": "",
-              "options": ["non- motorized", "motorized", "Others"],
+              "options": ["non-motorized", "motorized", "Others"],
               "conditional_fields": {
                 "Others": [
                   {
                     "parent_key": "vessel_type",
                     "key": "vessel_type_others",
-                    "label": "",
+                    "label": "If others, specify:",
                     "hint_text": "Enter Text Here",
                     "data_type": "text",
                     "question": "If others, specify:",
@@ -1599,7 +1615,7 @@ Map setup = {
             {
               "parent_key": "fishing_vessel",
               "key": "vessel_count",
-              "label": "",
+              "label": "Bilang:",
               "hint_text": "Enter Text Here",
               "data_type": "number",
               "question": "Bilang:",
@@ -1611,7 +1627,7 @@ Map setup = {
             {
               "parent_key": "fishing_vessel",
               "key": "material_used",
-              "label": "",
+              "label": "Material Used:",
               "hint_text": "",
               "data_type": "text",
               "question": "Material Used:",
@@ -1623,7 +1639,7 @@ Map setup = {
             {
               "parent_key": "fishing_vessel",
               "key": "material_count",
-              "label": "",
+              "label": "Bilang:",
               "hint_text": "Enter Text Here",
               "data_type": "number",
               "question": "Bilang:",
@@ -1635,7 +1651,7 @@ Map setup = {
             {
               "parent_key": "fishing_vessel",
               "key": "count_three_tonnage_below",
-              "label": "",
+              "label": "Bilang ng 3 gross tonnage and below",
               "hint_text": "Enter Text Here",
               "data_type": "number",
               "question": "Bilang ng 3 gross tonnage and below",
@@ -1647,7 +1663,7 @@ Map setup = {
             {
               "parent_key": "fishing_vessel",
               "key": "count_three_tonnage_above",
-              "label": "",
+              "label": "Bilang ng 3 gross tonnage and above",
               "hint_text": "Enter Text Here",
               "data_type": "number",
               "question": "Bilang ng 3 gross tonnage and above",
@@ -1661,7 +1677,7 @@ Map setup = {
         {
           "parent_key": "fishery_and_nipa_production_information",
           "key": "nipa_production",
-          "label": "",
+          "label": "49. Nipa Production:",
           "hint_text": "",
           "data_type": "multi_entry",
           "question": "49. Nipa Production:",
@@ -1673,7 +1689,7 @@ Map setup = {
             {
               "parent_key": "nipa_production",
               "key": "product",
-              "label": "",
+              "label": "Product",
               "hint_text": "",
               "data_type": "text",
               "question": "Product",
@@ -1690,7 +1706,7 @@ Map setup = {
             {
               "parent_key": "nipa_production",
               "key": "volume_quantity_per_year",
-              "label": "",
+              "label": "Volume/ Quantity per year",
               "hint_text": "Enter Text Here",
               "data_type": "number",
               "question": "Volume/ Quantity per year",
@@ -1702,7 +1718,7 @@ Map setup = {
             {
               "parent_key": "nipa_production",
               "key": "location",
-              "label": "",
+              "label": "Location",
               "hint_text": "Enter Text Here",
               "data_type": "text",
               "question": "Location",
@@ -1716,7 +1732,7 @@ Map setup = {
         {
           "parent_key": "fishery_and_nipa_production_information",
           "key": "fishing_gear_classification",
-          "label": "",
+          "label": "50. Classification of Fishing Gears:",
           "hint_text": "",
           "data_type": "multi_entry",
           "question": "50. Classification of Fishing Gears:",
@@ -1728,7 +1744,7 @@ Map setup = {
             {
               "parent_key": "fishing_gear_classification",
               "key": "type_of_fishing_gear",
-              "label": "",
+              "label": "Uri ng fishing gear",
               "hint_text": "",
               "data_type": "text",
               "question": "Uri ng fishing gear",

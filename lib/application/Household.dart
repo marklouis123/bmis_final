@@ -1906,7 +1906,7 @@ class Household with ChangeNotifier {
                     label: val.value['label'] ?? '',
                     childColumns: val.value['child_columns'] ?? [],
                     conditional_fields: val.value['conditional_fields'],
-                    initialValues: val.value['data_type'] ?? null,
+                    initialValues: val.value['initialValues'] ?? null,
                     key: val.value['key']))
                 .toList()))
         .toList();

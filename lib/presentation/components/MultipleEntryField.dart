@@ -146,7 +146,8 @@ class MultipleEntryField extends StatelessWidget {
                                         62,
                                 child: Text(
                                   data[index - 1]
-                                      [fieldData.childColumns[i]['key']],
+                                          [fieldData.childColumns[i]['key']]
+                                      .toString(),
                                   textAlign: TextAlign.center,
                                 ));
                           }));
@@ -339,6 +340,13 @@ class _AddDataFormState extends State<AddDataForm> {
   var tempData = {};
 
   @override
+  void initState() {
+    // TODO: implement initState
+    tempData.addAll(widget.initialValue);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     print(widget.initialValue);
     return GestureDetector(
@@ -412,7 +420,7 @@ class _AddDataFormState extends State<AddDataForm> {
                   labelText: widget.fieldData[index]['label'],
                   hintText: widget.fieldData[index]['hint_text'],
                   dataType: widget.fieldData[index]['data_type'],
-                  options: const [],
+                  options: widget.fieldData[index]['options'],
                   onChange: (val) {
                     tempData[widget.fieldData[index]['key']] = val;
                   },
