@@ -305,7 +305,7 @@ Map setup = {
         {
           "parent_key": "family_information",
           "key": "phones",
-          "label": "Telephone/Cell-phone Service Provider",
+          "label": "4. Telephone/Cell-phone Service Provider",
           "hint_text": "Telephone/Cell-phone Service Provider",
           "data_type": "multi_entry",
           "question": "4. Telephone/Cell-phone Service Provider.",
@@ -343,7 +343,7 @@ Map setup = {
         {
           "parent_key": "family_information",
           "key": "internet_providers",
-          "label": "Internet Service Provider",
+          "label": "5. Internet Service Provider",
           "hint_text": "Internet Service Provider",
           "data_type": "multi_entry",
           "question": "5. Internet Service Provider.",
@@ -369,7 +369,7 @@ Map setup = {
         {
           "parent_key": "family_information",
           "key": "serviceable_vehicles",
-          "label": "Type and number of serviceable vehicle owned",
+          "label": "6. Type and number of serviceable vehicle owned",
           "hint_text": "Type and number of serviceable vehicle owned",
           "data_type": "multi_entry",
           "question": "6.Type and number of serviceable vehicle owned.",
@@ -407,7 +407,7 @@ Map setup = {
         {
           "parent_key": "family_information",
           "key": "serviceable_appliances",
-          "label": "Type and number of serviceable appliances owned",
+          "label": "7. Type and number of serviceable appliances owned",
           "hint_text": "Type and number of serviceable appliances owned",
           "data_type": "multi_entry",
           "question": "7. Type and number of serviceable appliances owned.",
@@ -676,22 +676,22 @@ Map setup = {
           "question": "15. Toilet Facilities",
           "sublabel": "(Uri ng palikuran)",
           "options": [
-            "1.1 Owned, Pour/Flush type with septic tank",
-            "1.2 Owned, water-sealed, without sewage/septic tank",
-            "1.3 Owned, covered-pit w/ ventilation",
-            "1.4 Owned, Open-pit w/out ventilation",
-            "2.1 Shared, Pour/Flush type with septic tank",
-            "2.2 Shared, water-sealed, without sewage/septic tank",
-            "2.3 Shared, covered-pit w/ ventilation",
-            "2.4 Shared, Open-pit w/out ventilation",
-            "3.1 Public, Pour/Flush type with septic tank",
-            "3.2 Public, water-sealed, without sewage/septic tank",
-            "3.3 Public, covered-pit w/ ventilation",
-            "3.4 Public, Open-pit w/out ventilation",
-            "5 Without Toilet",
-            "6 Others (Pail system etc.)",
-            "7 Pour/Flush toilet connected to septic tank and sewerage system",
-            "8 Overhung Latrine"
+            "(1.1) Owned, Pour/Flush type with septic tank",
+            "(1.2) Owned, water-sealed, without sewage/septic tank",
+            "(1.3) Owned, covered-pit w/ ventilation",
+            "(1.4) Owned, Open-pit w/out ventilation",
+            "(2.1) Shared, Pour/Flush type with septic tank",
+            "(2.2) Shared, water-sealed, without sewage/septic tank",
+            "(2.3) Shared, covered-pit w/ ventilation",
+            "(2.4) Shared, Open-pit w/out ventilation",
+            "(3.1) Public, Pour/Flush type with septic tank",
+            "(3.2) Public, water-sealed, without sewage/septic tank",
+            "(3.3) Public, covered-pit w/ ventilation",
+            "(3.4) Public, Open-pit w/out ventilation",
+            "(5) Without Toilet",
+            "(6) Others (Pail system etc.)",
+            "(7) Pour/Flush toilet connected to septic tank and sewerage system",
+            "(8) Overhung Latrine"
           ],
           "conditional_fields": {},
           "initialValues": ""
@@ -1124,7 +1124,7 @@ Map setup = {
         {
           "parent_key": "agricultural_information",
           "key": "area_of_farmed_land",
-          "label": "Kabuuang laki ng lupang sinasaka at lugar:",
+          "label": "39. Kabuuang laki ng lupang sinasaka at lugar:",
           "hint_text": "",
           "data_type": "multi_entry",
           "question": "Kabuuang laki ng lupang sinasaka at lugar:",
@@ -1248,7 +1248,7 @@ Map setup = {
               "key": "land_area_per_product",
               "label": "Lawak ng lupa bawat pananim:",
               "hint_text": "",
-              "data_type": "",
+              "data_type": "number",
               "question": "42. Lawak ng lupa bawat pananim:",
               "sublabel": "",
               "options": [],
@@ -1287,7 +1287,7 @@ Map setup = {
               "data_type": "text",
               "question": "43. Lugar",
               "sublabel": "(Brgy/Mun/Prov)",
-              "options": ["Barangay", "Municipality", "Province"],
+              "options": [],
               "conditional_fields": {},
               "initialValues": ""
             }
@@ -1462,7 +1462,7 @@ Map setup = {
         {
           "parent_key": "fishery_and_nipa_production_information",
           "key": "fisheries_information",
-          "label": "Fisheries Information",
+          "label": "47. Fisheries Information",
           "hint_text": "",
           "data_type": "multi_entry",
           "question": "Fisheries Information",
@@ -1576,7 +1576,7 @@ Map setup = {
         {
           "parent_key": "fishery_and_nipa_production_information",
           "key": "fishing_vessel",
-          "label": "Fishing vessel",
+          "label": "48. Fishing vessel",
           "hint_text": "",
           "data_type": "multi_entry",
           "question": "48. Fishing vessel",
@@ -1790,7 +1790,7 @@ Map setup = {
             {
               "parent_key": "fishing_gear_classification",
               "key": "count",
-              "label": "",
+              "label": "Bilang",
               "hint_text": "Enter Text Here",
               "data_type": "number",
               "question": "Bilang",

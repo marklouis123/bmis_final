@@ -45,9 +45,6 @@ class MultipleEntryField extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
-                  backgroundColor: Theme.of(context).primaryColor),
               onPressed: () {
                 showModalBottomSheet(
                     context: context,
@@ -65,8 +62,12 @@ class MultipleEntryField extends StatelessWidget {
                           ),
                         ));
               },
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(),
+                // backgroundColor: Theme.of(context).primaryColor),
+              ),
               child: const Icon(Icons.add),
-            ),
+            )
           ],
         ),
         Container(
@@ -371,7 +372,7 @@ class _AddDataFormState extends State<AddDataForm> {
                   children: [
                     OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                          foregroundColor: Theme.of(context).colorScheme.error,
+                          // foregroundColor: Theme.of(context).colorScheme.error,
                           side: const BorderSide(
                               width: 1, color: Color(0xffff3333))),
                       child: const Text(
@@ -393,8 +394,8 @@ class _AddDataFormState extends State<AddDataForm> {
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff2B7A78),
-                      ),
+                          backgroundColor: const Color(0xff2B7A78),
+                          ),
                       child: const Text(
                         'Save',
                         style: TextStyle(fontSize: 18),

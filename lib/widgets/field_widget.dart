@@ -81,7 +81,9 @@ class _FieldWidgetState extends State<FieldWidget> {
                                 ? TextInputType.number
                                 : widget.dataType == 'phone'
                                     ? TextInputType.phone
-                                    : TextInputType.text,
+                                    : widget.dataType == 'date'
+                                        ? TextInputType.datetime
+                                        : TextInputType.text,
                         inputFormatters: widget.dataType == 'number'
                             ? [
                                 FilteringTextInputFormatter.allow(

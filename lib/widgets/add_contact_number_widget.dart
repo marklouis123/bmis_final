@@ -52,7 +52,8 @@ class _AddContactNumberWidgetState extends State<AddContactNumberWidget> {
           },
           style: ElevatedButton.styleFrom(
             // margin: const EdgeInsets.only(top: 16.0),
-            minimumSize: const Size.fromHeight(50), backgroundColor: const Color(0xff2B7A78),
+            minimumSize: const Size.fromHeight(50),
+            backgroundColor: const Color(0xff2B7A78),
           ),
           child: const Text(
             'Add',
