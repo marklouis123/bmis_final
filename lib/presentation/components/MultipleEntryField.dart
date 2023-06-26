@@ -341,12 +341,6 @@ class _AddDataFormState extends State<AddDataForm> {
   var tempData = {};
 
   @override
-  void didUpdateWidget(oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    tempData = {};
-  }
-
-  @override
   void initState() {
     // TODO: implement initState
     tempData.addAll(widget.initialValue);
@@ -421,20 +415,65 @@ class _AddDataFormState extends State<AddDataForm> {
                               ))))
                   : SizedBox(),
               ...List.generate(widget.fieldData.length, (index) {
-                return FieldWidget(
-                  question: '',
-                  labelText: widget.fieldData[index]['label'],
-                  hintText: widget.fieldData[index]['hint_text'],
-                  dataType: widget.fieldData[index]['data_type'],
-                  options: widget.fieldData[index]['options'],
-                  onChange: (val) {
-                    setState(() {
-                      tempData[widget.fieldData[index]['key']] = val;
-                    });
-                  },
-                  defaultValue: tempData[widget.fieldData[index]['key']],
-                  placeHolder: '',
-                  conditional_fields: {},
+                return Column(
+                  children: [
+                    FieldWidget(
+                      question: '',
+                      labelText: widget.fieldData[index]['label'],
+                      hintText: widget.fieldData[index]['hint_text'],
+                      dataType: widget.fieldData[index]['data_type'],
+                      options: widget.fieldData[index]['options'],
+                      onChange: (val) {
+                        setState(() {
+                          tempData[widget.fieldData[index]['key']] = val;
+                        });
+                      },
+                      defaultValue: tempData[widget.fieldData[index]['key']],
+                      placeHolder: '',
+                      conditional_fields: {},
+                    ),
+                    tempData[widget.fieldData[index]['key']] != null &&
+                            widget.fieldData[index]['conditional_fields']
+                                .containsKey(
+                                    tempData[widget.fieldData[index]['key']])
+                        ? Column(
+                            children: List.generate(
+                                widget
+                                    .fieldData[index]['conditional_fields'][
+                                        tempData[widget.fieldData[index]
+                                            ['key']]]
+                                    .length, (i) {
+                              return FieldWidget(
+                                question: '',
+                                labelText: widget.fieldData[index]
+                                        ['conditional_fields'][
+                                    tempData[widget.fieldData[index]
+                                        ['key']]][i]['label'],
+                                hintText: widget.fieldData[index]
+                                        ['conditional_fields'][
+                                    tempData[widget.fieldData[index]
+                                        ['key']]][i]['hint_text'],
+                                dataType: widget.fieldData[index]
+                                        ['conditional_fields'][
+                                    tempData[widget.fieldData[index]
+                                        ['key']]][i]['data_type'],
+                                options: widget.fieldData[index]
+                                        ['conditional_fields'][
+                                    tempData[widget.fieldData[index]
+                                        ['key']]][i]['options'],
+                                onChange: (val) {
+                                  print("Add forms conditional");
+                                  print(val);
+                                },
+                                defaultValue: null,
+                                placeHolder: '',
+                                conditional_fields: {},
+                              );
+                            }),
+                          )
+                        : SizedBox()
+                    // ? Text("123"): Text("2312");
+                  ],
                 );
               }),
             ],
