@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:bmis_final/config/global/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,12 @@ class _FieldWidgetState extends State<FieldWidget> {
   final myController = TextEditingController();
 
   @override
+  void didUpdateWidget(oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    optionValue = null;
+  }
+
+  @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     myController.dispose();
@@ -49,7 +56,7 @@ class _FieldWidgetState extends State<FieldWidget> {
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
         children: [
-          !widget.question.isEmpty
+          !widget.question.isEmpty && widget.dataType != 'label'
               ? Container(
                   // margin: const EdgeInsets.only(top: 16.0),
                   alignment: Alignment.centerLeft,
@@ -61,68 +68,79 @@ class _FieldWidgetState extends State<FieldWidget> {
                           fontWeight: FontWeight.bold)),
                 )
               : const SizedBox(),
-          widget.dataType == 'multiple_select'
-              ? Text("Multiple Select")
-              : widget.options.isEmpty
-                  ? Container(
-                      // margin: const EdgeInsets.only(top: 16.0),
-                      child: TextFormField(
-                        initialValue: widget.defaultValue,
-                        decoration: InputDecoration(
-                          hintText: widget.hintText,
-                          labelText: widget.labelText,
-                          border: const OutlineInputBorder(),
-                          fillColor: Colors.white,
-                          filled: true,
-                        ),
-                        keyboardType: widget.dataType == 'text'
-                            ? TextInputType.text
-                            : widget.dataType == 'number'
-                                ? TextInputType.number
-                                : widget.dataType == 'phone'
-                                    ? TextInputType.phone
-                                    : widget.dataType == 'date'
-                                        ? TextInputType.datetime
-                                        : TextInputType.text,
-                        inputFormatters: widget.dataType == 'number'
-                            ? [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp(r"^\d*\.?\d*$")),
-                              ]
-                            : [],
-                        onChanged: widget.onChange,
-                      ),
-                    )
-                  : Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(color: Colors.black)),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<dynamic>(
-                          hint: Text(
-                            widget.labelText,
+          widget.dataType == 'label'
+              ? Container(
+                  // margin: const EdgeInsets.only(top: 16.0),
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Text(widget.question,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold)),
+                )
+              : widget.dataType == 'multiple_select'
+                  ? Text("Multiple Select")
+                  : widget.options.isEmpty
+                      ? Container(
+                          // margin: const EdgeInsets.only(top: 16.0),
+                          child: TextFormField(
+                            initialValue: widget.defaultValue,
+                            decoration: InputDecoration(
+                              hintText: widget.hintText,
+                              labelText: widget.labelText,
+                              border: const OutlineInputBorder(),
+                              fillColor: Colors.white,
+                              filled: true,
+                            ),
+                            keyboardType: widget.dataType == 'text'
+                                ? TextInputType.text
+                                : widget.dataType == 'number'
+                                    ? TextInputType.number
+                                    : widget.dataType == 'phone'
+                                        ? TextInputType.phone
+                                        : widget.dataType == 'date'
+                                            ? TextInputType.datetime
+                                            : TextInputType.text,
+                            inputFormatters: widget.dataType == 'number'
+                                ? [
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp(r"^\d*\.?\d*$")),
+                                  ]
+                                : [],
+                            onChanged: widget.onChange,
                           ),
-                          isExpanded: true,
-                          itemHeight: 60,
-                          value: optionValue,
-                          onChanged: (val) {
-                            setState(() {
-                              optionValue = val;
-                            });
-                            print(optionValue);
-                            print(widget.conditional_fields);
-                            widget.onChange(val);
-                          },
-                          items: widget.options.map<DropdownMenuItem>((value) {
-                            return DropdownMenuItem(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
+                        )
+                      : Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              border: Border.all(color: Colors.black)),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<dynamic>(
+                              hint: Text(
+                                widget.labelText,
+                              ),
+                              isExpanded: true,
+                              itemHeight: 60,
+                              value: widget.defaultValue,
+                              onChanged: (val) {
+                                setState(() {
+                                  optionValue = val;
+                                });
+                                widget.onChange(val);
+                              },
+                              items:
+                                  widget.options.map<DropdownMenuItem>((value) {
+                                return DropdownMenuItem(
+                                  key: Key(generateKey()),
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
         ],
       ),
     );

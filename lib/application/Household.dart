@@ -1881,6 +1881,12 @@ class Household with ChangeNotifier {
   Map get document => _documentData;
   FormSection get currentSection => tabs[currentTab];
 
+  Map getDataBySection(section) {
+    if (_documentData.containsKey(section.key))
+      return _documentData[section.key];
+    return {};
+  }
+
   List<FormSection> get tabs {
     List<FormSection> list = [];
 
@@ -1931,7 +1937,6 @@ class Household with ChangeNotifier {
     if (subsection == null) {
       if (_documentData.containsKey(section) &&
           (_documentData[section] as Map).containsKey(key)) {
-        print(_documentData[section][key]);
         return _documentData[section][key];
       } else {
         return null;
@@ -1939,7 +1944,6 @@ class Household with ChangeNotifier {
     } else {
       if (_documentData.containsKey(section) &&
           (_documentData[section] as Map).containsKey(key)) {
-        print(_documentData[section][key]);
         return _documentData[section][key];
       } else {
         return null;
@@ -1948,10 +1952,7 @@ class Household with ChangeNotifier {
   }
 
   void deleteMultiFieldEntry(section, subsection, index) {
-    print(index);
-    print(_documentData[section][subsection]);
     (_documentData[section][subsection] as List).removeAt(index);
-    print(_documentData);
     notifyListeners();
   }
 

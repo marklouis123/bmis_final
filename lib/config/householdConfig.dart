@@ -471,10 +471,10 @@ Map setup = {
       "parent_key": "",
       "key": "health_information",
       "label": "HEALTH INFORMATION",
-      "hint_text": "",
+      "hint_text": "Enter Text Here",
       "data_type": "section",
-      "question": "",
-      "sublabel": "",
+      "question": "HEALTH INFORMATION",
+      "sublabel": "IMPORMASYON SA KALUSUGAN",
       "options": [],
       "conditional_fields": {},
       "initialValues": "",
@@ -482,12 +482,12 @@ Map setup = {
         {
           "parent_key": "health_information",
           "key": "can_eat_three_times_a_day",
-          "label": "",
-          "hint_text": "",
+          "label": "8. Kumakain po ba kayo ng tatlong beses (meals) araw-araw?",
+          "hint_text": "Choose Option Here",
           "data_type": "text",
           "question":
               "8. Kumakain po ba kayo ng tatlong beses (meals) araw-araw?",
-          "sublabel": "",
+          "sublabel": "(Do you eat three times a day?)",
           "options": ["Yes", "No"],
           "conditional_fields": {},
           "initialValues": ""
@@ -495,21 +495,21 @@ Map setup = {
         {
           "parent_key": "health_information",
           "key": "plants_herbal_plant",
-          "label": "",
-          "hint_text": "",
-          "data_type": "boolean",
+          "label": "9. Do you plant herbal plants?",
+          "hint_text": "Choose Option Here",
+          "data_type": "text",
           "question": "9. Do you plant herbal plants?",
-          "sublabel": "(May tanim na halamang gamot)?",
+          "sublabel": "(May tanim na halamang gamot?)",
           "options": ["Yes", "No"],
           "conditional_fields": {
             "Yes": [
               {
                 "parent_key": "plants_herbal_plant",
                 "key": "plants_herbal_plant_true",
-                "label": "",
-                "hint_text": "",
+                "label": "10. If yes, what herbal plants?",
+                "hint_text": "Enter Text Here",
                 "data_type": "multi_entry",
-                "question": "10. What herbal plants?",
+                "question": "10. If yes, what herbal plants?",
                 "sublabel": "(Kung Oo, anong uri ng halamang gamot)?",
                 "options": [],
                 "conditional_fields": {},
@@ -521,8 +521,8 @@ Map setup = {
                     "label": "Herbal Plant",
                     "hint_text": "Enter Herbal Plant",
                     "data_type": "text",
-                    "question": "",
-                    "sublabel": "",
+                    "question": "Herbal Plant",
+                    "sublabel": "Halamang Gamot",
                     "options": [],
                     "conditional_fields": {},
                     "initialValues": ""
@@ -536,9 +536,9 @@ Map setup = {
         {
           "parent_key": "health_information",
           "key": "plants_vegetable",
-          "label": "",
-          "hint_text": "",
-          "data_type": "boolean",
+          "label": "11. Do you have a vegetable garden?",
+          "hint_text": "Choose Option Here",
+          "data_type": "text",
           "question": "11. Do you have a vegetable garden?",
           "sublabel": "(May tanim na gulay)?",
           "options": ["Yes", "No"],
@@ -548,9 +548,9 @@ Map setup = {
         {
           "parent_key": "health_information",
           "key": "uses_iodized_salt",
-          "label": "",
-          "hint_text": "",
-          "data_type": "boolean",
+          "label": "12. Do you use iodized salt?",
+          "hint_text": "Choose Option Here",
+          "data_type": "text",
           "question": "12. Do you use iodized salt?",
           "sublabel": "(Gumagamit ng iodized salt)?",
           "options": ["Yes", "No"],
@@ -560,9 +560,9 @@ Map setup = {
         {
           "parent_key": "health_information",
           "key": "practices_family_planning",
-          "label": "",
-          "hint_text": "",
-          "data_type": "boolean",
+          "label": "13. Do you practice Family Planning?",
+          "hint_text": "Choose Option Here",
+          "data_type": "text",
           "question": "13. Do you practice Family Planning?",
           "sublabel": "(Gumagamit ng family planning)?",
           "options": ["Yes", "No"],
@@ -571,12 +571,12 @@ Map setup = {
               {
                 "parent_key": "practices_family_planning",
                 "key": "practices_family_planning_text",
-                "label":
-                    "14. If yes, what method/s of family planning?(Kung oo, anong paraan ng family planning ang ginagamit)",
-                "hint_text": "",
-                "data_type": "subsection",
-                "question": "",
-                "sublabel": "",
+                "label": "14. If yes, what method/s of family planning?",
+                "hint_text": "Enter Text Here",
+                "data_type": "label",
+                "question": "14. If yes, what method/s of family planning?",
+                "sublabel":
+                    "(Kung oo, anong paraan ng family planning ang ginagamit)",
                 "options": [],
                 "conditional_fields": {},
                 "initialValues": ""
@@ -584,70 +584,44 @@ Map setup = {
               {
                 "parent_key": "practices_family_planning",
                 "key": "practices_family_planning_natural",
-                "label": "",
-                "hint_text": "",
-                "data_type": "multi_entry",
+                "label": "Natural",
+                "hint_text": "Enter Text Here",
+                "data_type": "multiple_select",
                 "question": "Natural",
-                "sublabel": "",
-                "options": [],
+                "sublabel": "Natural",
+                "options": [
+                  "Basal Body Temperature",
+                  "Cervical Mucus",
+                  "Lactational Amenorrhea Method",
+                  "Rhythm",
+                  "Standard Days Method",
+                  "Sympto-thermal Method",
+                  "Withdrawal"
+                ],
                 "conditional_fields": {},
                 "initialValues": "",
-                "child_columns": [
-                  {
-                    "parent_key": "practices_family_planning_natural",
-                    "key": "practices_family_planning_natural_method",
-                    "label": "Natural",
-                    "hint_text": "",
-                    "data_type": "",
-                    "question": "",
-                    "sublabel": "",
-                    "options": [
-                      "Basal Body Temperature",
-                      "Cervical Mucus",
-                      "Lactational Amenorrhea Method",
-                      "Rhythm",
-                      "Standard Days Method",
-                      "Sympto-thermal Method",
-                      "Withdrawal"
-                    ],
-                    "conditional_fields": {},
-                    "initialValues": ""
-                  }
-                ]
+                "child_columns": []
               },
               {
                 "parent_key": "practices_family_planning",
                 "key": "practices_family_planning_artificial",
-                "label": "",
-                "hint_text": "",
-                "data_type": "multi_entry",
+                "label": "Artificial",
+                "hint_text": "Enter Text Here",
+                "data_type": "multiple_select",
                 "question": "Artificial",
-                "sublabel": "",
-                "options": [],
+                "sublabel": "Artipisyal",
+                "options": [
+                  "Condom",
+                  "Depo Injection",
+                  "IUD",
+                  "Tubal Ligation",
+                  "Pills",
+                  "Vasectomy",
+                  "Subdermal implants"
+                ],
                 "conditional_fields": {},
                 "initialValues": "",
-                "child_columns": [
-                  {
-                    "parent_key": "practices_family_planning_artificial",
-                    "key": "practices_family_planning_artificial_method",
-                    "label": "Artificial",
-                    "hint_text": "",
-                    "data_type": "",
-                    "question": "",
-                    "sublabel": "",
-                    "options": [
-                      "Condom",
-                      "Depo Injection",
-                      "IUD",
-                      "Tubal Ligation",
-                      "Pills",
-                      "Vasectomy",
-                      "Subdermal implants"
-                    ],
-                    "conditional_fields": {},
-                    "initialValues": ""
-                  }
-                ]
+                "child_columns": []
               }
             ]
           },

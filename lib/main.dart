@@ -17,9 +17,9 @@ void main() async {
   Hive.init(directory.path);
   var citizenBox = await Hive.openBox('citizens');
 
-  // List<Map<String, dynamic>> list = CitizenSeeder.generateCitizen(200);
+  List<Map<String, dynamic>> list = CitizenSeeder.generateCitizen(200);
 
-  // citizenBox.put('list', list);
+  citizenBox.put('list', []);
 
   // print('Name: ${citizenBox.get('list')}');
   // final collection = await BoxCollection.open(
@@ -61,12 +61,14 @@ class MyApp extends StatelessWidget {
               onBackground: Color(0xff17252a),
               surface: Color(0xff17252a),
               onSurface: Color(0xff17252a))),
-      home: MultiProvider(providers: [
-        ChangeNotifierProvider(create: (_) => Household(setup)),
-        ChangeNotifierProvider(create: (_) => CitizenProvider()),
-      ], child: HouseholdPage()
-          // child: const UpdateHouseholdPage(),
-          ),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => Household(setup)),
+          ChangeNotifierProvider(create: (_) => CitizenProvider()),
+        ],
+        // child: HouseholdPage()
+        child: const UpdateHouseholdPage(),
+      ),
     );
   }
 }

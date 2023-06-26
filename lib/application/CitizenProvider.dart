@@ -14,7 +14,6 @@ class CitizenProvider with ChangeNotifier {
   void init() async {
     var citizenBox = await Hive.openBox('citizens');
     this._citizenList = citizenBox.get('list');
-    print(this._citizenList);
   }
 
   void saveCitizen() {}

@@ -1,4 +1,5 @@
 import 'package:bmis_final/application/Household.dart';
+import 'package:bmis_final/models/BMISFormField.dart';
 import 'package:bmis_final/presentation/components/MultiSelectField.dart';
 import 'package:bmis_final/presentation/components/MultipleEntryField.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class HouseholdForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var document = context.watch<Household>().getDataBySection(section);
     return SingleChildScrollView(
       child: Container(
         child: Card(
@@ -214,7 +216,7 @@ class HouseholdForm extends StatelessWidget {
                           context.read<Household>().onFieldChange(section.key,
                               null, section.childColumns[index].key, val, null);
                         },
-                        defaultValue: null,
+                        defaultValue: document[section.childColumns[index].key],
                         placeHolder: '',
                         conditional_fields: {},
                       ),
@@ -228,14 +230,65 @@ class HouseholdForm extends StatelessWidget {
                                           section.childColumns[index].key))
                           ? Column(
                               children: List.generate(
-                                section
-                                    .childColumns[index]
-                                    .conditional_fields[context
-                                        .watch<Household>()
-                                        .getFieldValue(section.key, null,
-                                            section.childColumns[index].key)]
-                                    .length,
-                                (i) => Container(
+                                  section
+                                      .childColumns[index]
+                                      .conditional_fields[context
+                                          .watch<Household>()
+                                          .getFieldValue(section.key, null,
+                                              section.childColumns[index].key)]
+                                      .length, (i) {
+                                var dataType = section
+                                        .childColumns[index].conditional_fields[
+                                    context.read<Household>().getFieldValue(
+                                        section.key,
+                                        null,
+                                        section.childColumns[index]
+                                            .key)][i]['data_type'];
+                                if (dataType == 'multiple_select') {
+                                  return Column(
+                                    children: [
+                                      Container(
+                                        // margin: const EdgeInsets.only(top: 16.0),
+                                        alignment: Alignment.centerLeft,
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8.0),
+                                        child:
+                                            Text(
+                                                section.childColumns[index]
+                                                            .conditional_fields[
+                                                        context
+                                                            .read<Household>()
+                                                            .getFieldValue(
+                                                                section.key,
+                                                                null,
+                                                                section
+                                                                    .childColumns[
+                                                                        index]
+                                                                    .key)][i]
+                                                    ['question'],
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 18.0,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                      ),
+                                      MultiSelectField(
+                                        field: BMISFormField.fromObject(section
+                                                .childColumns[index]
+                                                .conditional_fields[
+                                            context
+                                                .read<Household>()
+                                                .getFieldValue(
+                                                    section.key,
+                                                    null,
+                                                    section.childColumns[index]
+                                                        .key)][i]),
+                                      ),
+                                    ],
+                                  );
+                                }
+
+                                return Container(
                                     margin: const EdgeInsets.only(left: 10),
                                     child: FieldWidget(
                                       question: section.childColumns[index]
@@ -258,15 +311,7 @@ class HouseholdForm extends StatelessWidget {
                                                   section.childColumns[index]
                                                       .key)][i]['label'],
                                       hintText: 'Enter Text Here',
-                                      dataType: section.childColumns[index]
-                                              .conditional_fields[
-                                          context
-                                              .read<Household>()
-                                              .getFieldValue(
-                                                  section.key,
-                                                  null,
-                                                  section.childColumns[index]
-                                                      .key)][i]['data_type'],
+                                      dataType: dataType,
                                       options: section.childColumns[index]
                                               .conditional_fields[
                                           context
@@ -293,7 +338,16 @@ class HouseholdForm extends StatelessWidget {
                                             val,
                                             null);
                                       },
-                                      defaultValue: null,
+                                      defaultValue: document[section
+                                              .childColumns[index]
+                                              .conditional_fields[
+                                          context
+                                              .watch<Household>()
+                                              .getFieldValue(
+                                                  section.key,
+                                                  null,
+                                                  section.childColumns[index]
+                                                      .key)][i]['key']],
                                       placeHolder: '',
                                       conditional_fields: section
                                                   .childColumns[index]
@@ -307,8 +361,8 @@ class HouseholdForm extends StatelessWidget {
                                                           .childColumns[index]
                                                           .key)][i]
                                           ['conditional_fields'],
-                                    )),
-                              ),
+                                    ));
+                              }),
                             )
                           : SizedBox()
                     ],

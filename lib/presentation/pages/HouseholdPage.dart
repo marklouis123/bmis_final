@@ -82,8 +82,6 @@ class HouseholdPage extends StatelessWidget {
   }
 
   String householdText(Map citizenData) {
-    print("Citisense Data: ");
-    print(citizenData);
     return citizenData['id'].toString() +
         '-' +
         citizenData['last_name'].toString() +

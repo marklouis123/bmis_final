@@ -1,4 +1,22 @@
 class BMISFormField {
+  static BMISFormField fromObject(Map object) {
+    return BMISFormField(
+      key: object['key'] ?? '',
+      dataType: object['data_type'] ?? '',
+      subsectionKey: object['parent_key'] ?? '',
+      sectionKey: object['parent_key'] ?? '',
+      parentKey: object['parent_key'] ?? '',
+      labelText: object['label'] ?? '',
+      hintText: object['hint_text'] ?? '',
+      options: object['options'] ?? [],
+      question: object['question'] ?? '',
+      label: object['label'] ?? '',
+      childColumns: object['child_columns'] ?? '',
+      conditional_fields: object['conditional_fields'] ?? {},
+      initialValues: object['initialValues'] ?? '',
+    );
+  }
+
   BMISFormField({
     required this.key,
     required this.dataType,

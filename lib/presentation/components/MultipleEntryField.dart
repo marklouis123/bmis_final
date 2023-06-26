@@ -341,6 +341,12 @@ class _AddDataFormState extends State<AddDataForm> {
   var tempData = {};
 
   @override
+  void didUpdateWidget(oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    tempData = {};
+  }
+
+  @override
   void initState() {
     // TODO: implement initState
     tempData.addAll(widget.initialValue);
@@ -349,7 +355,6 @@ class _AddDataFormState extends State<AddDataForm> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.initialValue);
     return GestureDetector(
       child: Container(
         color: const Color(0xff747474),
@@ -394,8 +399,8 @@ class _AddDataFormState extends State<AddDataForm> {
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff2B7A78),
-                          ),
+                        backgroundColor: const Color(0xff2B7A78),
+                      ),
                       child: const Text(
                         'Save',
                         style: TextStyle(fontSize: 18),
@@ -423,10 +428,11 @@ class _AddDataFormState extends State<AddDataForm> {
                   dataType: widget.fieldData[index]['data_type'],
                   options: widget.fieldData[index]['options'],
                   onChange: (val) {
-                    tempData[widget.fieldData[index]['key']] = val;
+                    setState(() {
+                      tempData[widget.fieldData[index]['key']] = val;
+                    });
                   },
-                  defaultValue:
-                      widget.initialValue[widget.fieldData[index]['key']],
+                  defaultValue: tempData[widget.fieldData[index]['key']],
                   placeHolder: '',
                   conditional_fields: {},
                 );
