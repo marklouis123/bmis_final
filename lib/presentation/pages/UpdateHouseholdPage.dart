@@ -39,7 +39,7 @@ class UpdateHouseholdPage extends StatelessWidget {
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff17252a),
+                        backgroundColor: const Color(0xff17252a),
                         minimumSize: const Size(88, 36),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
@@ -69,7 +69,9 @@ class UpdateHouseholdPage extends StatelessWidget {
                   child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 8),
                       child: HouseholdForm(
-                          section: context.watch<Household>().currentSection))),
+                        section: context.watch<Household>().currentSection,
+                        action: SizedBox(),
+                      ))),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

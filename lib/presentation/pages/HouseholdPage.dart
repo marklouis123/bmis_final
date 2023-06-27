@@ -1,14 +1,28 @@
 import 'package:bmis_final/application/CitizenProvider.dart';
+import 'package:bmis_final/application/Household.dart';
 import 'package:bmis_final/presentation/pages/household/createHousehold.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class HouseholdPage extends StatelessWidget {
+class HouseholdPage extends StatefulWidget {
   const HouseholdPage({super.key});
 
   @override
+  State<HouseholdPage> createState() => _HouseholdPageState();
+}
+
+class _HouseholdPageState extends State<HouseholdPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var data = context.watch<Household>().houseHoldList;
+    print('Data $data');
     return Scaffold(
         backgroundColor: const Color(0xffdef2f1),
         resizeToAvoidBottomInset: false,
@@ -55,10 +69,7 @@ class HouseholdPage extends StatelessWidget {
                     ),
                     Expanded(
                       child: ListView.builder(
-                          itemCount: context
-                              .watch<CitizenProvider>()
-                              .citizenseList
-                              .length,
+                          itemCount: data.length,
                           itemBuilder: ((context, index) => Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 4.0),
@@ -73,9 +84,7 @@ class HouseholdPage extends StatelessWidget {
                                     child: Center(
                                       child: ListTile(
                                           title: Text(
-                                        householdText(context
-                                            .watch<CitizenProvider>()
-                                            .citizenseList[index]),
+                                        data[index]['family_head_id'],
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 22,

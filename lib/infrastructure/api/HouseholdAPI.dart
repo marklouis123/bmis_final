@@ -10,13 +10,14 @@ class HouseholdAPI {
     }
   }
 
-  static createHousehold(Map household, String familyHeadID) async {
+  static createHousehold(Map householdData, String familyHeadID) async {
+    print('createHousehold $familyHeadID $householdData');
     try {
       var household = await Hive.openBox('households');
-      household.put(familyHeadID, household);
+      household.put(familyHeadID, householdData);
       return true;
     } catch (e) {
-      return e;
+      throw e;
     }
   }
 

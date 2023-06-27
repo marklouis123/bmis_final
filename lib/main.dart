@@ -48,6 +48,20 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp.router(
           title: 'Provider Demo',
+          theme: ThemeData(
+              primaryColor: const Color(0xff2a7a78),
+              colorScheme: const ColorScheme(
+                  brightness: Brightness.light,
+                  primary: Color(0xff17252a),
+                  onPrimary: Color(0xffffffff),
+                  secondary: Color(0xffffffff),
+                  onSecondary: Color(0xffffffff),
+                  error: Color(0xffff3333),
+                  onError: Color(0xffff3333),
+                  background: Color(0xff17252a),
+                  onBackground: Color(0xff17252a),
+                  surface: Color(0xff17252a),
+                  onSurface: Color(0xff17252a))),
           routerConfig: router(),
         ),
         // child: const UpdateHouseholdPage(),
