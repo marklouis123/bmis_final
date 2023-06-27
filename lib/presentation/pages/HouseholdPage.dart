@@ -1,5 +1,7 @@
 import 'package:bmis_final/application/CitizenProvider.dart';
+import 'package:bmis_final/presentation/pages/household/createHousehold.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class HouseholdPage extends StatelessWidget {
@@ -13,6 +15,13 @@ class HouseholdPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           title: Center(child: Text("BMIS")),
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Color(0xff2a7a78),
+          onPressed: () {
+            context.go('/householdPage/createHousehold');
+          },
+          child: Icon(Icons.add),
         ),
         body: Container(
           margin: const EdgeInsets.all(10),

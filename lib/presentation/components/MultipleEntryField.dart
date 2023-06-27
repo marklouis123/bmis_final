@@ -350,6 +350,7 @@ class _AddDataFormState extends State<AddDataForm> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Container(
         color: const Color(0xff747474),
         child: Container(

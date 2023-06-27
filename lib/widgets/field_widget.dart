@@ -119,7 +119,7 @@ class _FieldWidgetState extends State<FieldWidget> {
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton<dynamic>(
                               hint: Text(
-                                widget.labelText,
+                                widget.hintText,
                               ),
                               isExpanded: true,
                               itemHeight: 60,

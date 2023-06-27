@@ -16,6 +16,7 @@ class HouseholdForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var document = context.watch<Household>().getDataBySection(section);
+    print(document);
     return SingleChildScrollView(
       child: Container(
         child: Card(
@@ -60,10 +61,12 @@ class HouseholdForm extends StatelessWidget {
                           Container(
                               margin: const EdgeInsets.only(left: 10),
                               child: FieldWidget(
-                                question: '',
+                                question: section.childColumns[index]
+                                    .childColumns[i]['question'],
                                 labelText: section.childColumns[index]
                                     .childColumns[i]['label'],
-                                hintText: 'Enter Text Here',
+                                hintText: section.childColumns[index]
+                                    .childColumns[i]['hint_text'],
                                 dataType: section.childColumns[index]
                                     .childColumns[i]['data_type'],
                                 options: section.childColumns[index]
@@ -77,7 +80,11 @@ class HouseholdForm extends StatelessWidget {
                                       val,
                                       null);
                                 },
-                                defaultValue: null,
+                                defaultValue: handleSubSectionDefaultValue(
+                                    document,
+                                    section.childColumns[index].key,
+                                    section.childColumns[index].childColumns[i]
+                                        ['key']),
                                 placeHolder: '',
                                 conditional_fields: {},
                               )),
@@ -372,5 +379,13 @@ class HouseholdForm extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  dynamic handleSubSectionDefaultValue(Map document, subSectionKey, key) {
+    if (document.containsKey(subSectionKey) &&
+        document[subSectionKey].containsKey(key)) {
+      return document[subSectionKey][key];
+    }
+    return null;
   }
 }
