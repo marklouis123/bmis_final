@@ -9,10 +9,15 @@ import '../../models/FormSection.dart';
 import '../../widgets/field_widget.dart';
 
 class HouseholdForm extends StatelessWidget {
-  const HouseholdForm({super.key, required this.section, required this.action});
+  const HouseholdForm(
+      {super.key,
+      required this.section,
+      required this.action,
+      required this.isCreate});
 
   final FormSection section;
   final Widget action;
+  final bool isCreate;
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +67,7 @@ class HouseholdForm extends StatelessWidget {
                             Container(
                                 margin: const EdgeInsets.only(left: 10),
                                 child: FieldWidget(
+                                  isCreate: isCreate,
                                   question: section.childColumns[index]
                                       .childColumns[i]['question'],
                                   labelText: section.childColumns[index]
@@ -88,6 +94,13 @@ class HouseholdForm extends StatelessWidget {
                                           .childColumns[i]['key']),
                                   placeHolder: '',
                                   conditional_fields: {},
+                                  required: section.childColumns[index]
+                                          .childColumns[i]['required'] ??
+                                      false,
+                                  disabled: section.childColumns[index]
+                                              .childColumns[i]
+                                          ['disabledOnUpdate'] ??
+                                      false,
                                 )),
                             context.watch<Household>().getFieldValue(
                                               section.key,
@@ -109,6 +122,7 @@ class HouseholdForm extends StatelessWidget {
                                 ? Container(
                                     margin: const EdgeInsets.only(left: 10),
                                     child: FieldWidget(
+                                      isCreate: isCreate,
                                       question: '',
                                       labelText: section.childColumns[index]
                                                   .childColumns[i]
@@ -174,6 +188,37 @@ class HouseholdForm extends StatelessWidget {
                                               .childColumns[index]
                                               .childColumns[i]
                                           ['conditional_fields'],
+                                      required: section.childColumns[index]
+                                                      .childColumns[i]
+                                                  ['conditional_fields'][
+                                              context
+                                                  .read<Household>()
+                                                  .getFieldValue(
+                                                      section.key,
+                                                      section
+                                                          .childColumns[index]
+                                                          .key,
+                                                      section
+                                                              .childColumns[index]
+                                                              .childColumns[i][
+                                                          'key'])]['required'] ??
+                                          false,
+                                      disabled: section.childColumns[index]
+                                                          .childColumns[i]
+                                                      ['conditional_fields'][
+                                                  context
+                                                      .read<Household>()
+                                                      .getFieldValue(
+                                                          section.key,
+                                                          section
+                                                              .childColumns[index]
+                                                              .key,
+                                                          section
+                                                                  .childColumns[index]
+                                                                  .childColumns[i]
+                                                              ['key'])]
+                                              ['disabledOnUpdate'] ??
+                                          false,
                                     ))
                                 : SizedBox()
                           ],
@@ -217,6 +262,7 @@ class HouseholdForm extends StatelessWidget {
                   } else if (section.childColumns[index].dataType ==
                       'multi_entry') {
                     return MultipleEntryField(
+                      isCreate: isCreate,
                       mainContext: context,
                       section: section.key,
                       fieldData: section.childColumns[index],
@@ -225,6 +271,7 @@ class HouseholdForm extends StatelessWidget {
                     return Column(
                       children: [
                         FieldWidget(
+                          isCreate: isCreate,
                           question: section.childColumns[index].question,
                           labelText: section.childColumns[index].label,
                           hintText: 'Enter Text Here',
@@ -242,6 +289,9 @@ class HouseholdForm extends StatelessWidget {
                               document[section.childColumns[index].key],
                           placeHolder: '',
                           conditional_fields: {},
+                          required: section.childColumns[index].required,
+                          disabled:
+                              section.childColumns[index].disabledOnUpdate,
                         ),
                         context.watch<Household>().getFieldValue(
                                         section.key,
@@ -319,6 +369,7 @@ class HouseholdForm extends StatelessWidget {
                                   return Container(
                                       margin: const EdgeInsets.only(left: 10),
                                       child: FieldWidget(
+                                        isCreate: isCreate,
                                         question: section.childColumns[index]
                                                 .conditional_fields[
                                             context
@@ -390,6 +441,36 @@ class HouseholdForm extends StatelessWidget {
                                                             .childColumns[index]
                                                             .key)][i]
                                             ['conditional_fields'],
+                                        required: section.childColumns[index]
+                                                    .conditional_fields[
+                                                context
+                                                    .read<Household>()
+                                                    .getFieldValue(
+                                                        section.key,
+                                                        section
+                                                            .childColumns[index]
+                                                            .key,
+                                                        section
+                                                            .childColumns[index]
+                                                            .key)][i]['required'] ??
+                                            false,
+                                        disabled:
+                                            section.childColumns[index]
+                                                            .conditional_fields[
+                                                        context
+                                                            .read<Household>()
+                                                            .getFieldValue(
+                                                                section.key,
+                                                                section
+                                                                    .childColumns[
+                                                                        index]
+                                                                    .key,
+                                                                section
+                                                                    .childColumns[
+                                                                        index]
+                                                                    .key)][i]
+                                                    ['disabledOnUpdate'] ??
+                                                false,
                                       ));
                                 }),
                               )

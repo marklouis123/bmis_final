@@ -7,18 +7,21 @@ import 'package:provider/provider.dart';
 import '../application/Household.dart';
 
 class FieldWidget extends StatefulWidget {
-  const FieldWidget({
-    Key? key,
-    required this.dataType,
-    required this.placeHolder,
-    required this.labelText,
-    required this.hintText,
-    required this.defaultValue,
-    required this.options,
-    required this.question,
-    required this.onChange,
-    required this.conditional_fields,
-  }) : super(key: key);
+  const FieldWidget(
+      {Key? key,
+      required this.dataType,
+      required this.placeHolder,
+      required this.labelText,
+      required this.hintText,
+      required this.defaultValue,
+      required this.options,
+      required this.question,
+      required this.onChange,
+      required this.conditional_fields,
+      required this.disabled,
+      required this.required,
+      required this.isCreate})
+      : super(key: key);
   final String dataType;
   final String placeHolder;
   final String labelText;
@@ -28,6 +31,9 @@ class FieldWidget extends StatefulWidget {
   final String question;
   final Function(dynamic val) onChange;
   final Map conditional_fields;
+  final bool required;
+  final bool disabled;
+  final bool isCreate;
 
   @override
   State<FieldWidget> createState() => _FieldWidgetState();
@@ -85,7 +91,16 @@ class _FieldWidgetState extends State<FieldWidget> {
                       ? Container(
                           // margin: const EdgeInsets.only(top: 16.0),
                           child: TextFormField(
+                            validator: (value) {
+                              if (widget.required &&
+                                  (value == null || value.isEmpty)) {
+                                return 'This field is required';
+                              }
+
+                              return null;
+                            },
                             initialValue: widget.defaultValue,
+                            enabled: !widget.disabled || widget.isCreate,
                             decoration: InputDecoration(
                               hintText: widget.hintText,
                               labelText: widget.labelText,
@@ -112,24 +127,33 @@ class _FieldWidgetState extends State<FieldWidget> {
                           ),
                         )
                       : Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              border: Border.all(color: Colors.black)),
                           child: DropdownButtonHideUnderline(
-                            child: DropdownButton<dynamic>(
+                            child: DropdownButtonFormField<dynamic>(
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              validator: (value) {
+                                if (widget.required &&
+                                    (value == null || value.isEmpty)) {
+                                  return 'This field is required';
+                                }
+
+                                return null;
+                              },
                               hint: Text(
                                 widget.hintText,
                               ),
                               isExpanded: true,
                               itemHeight: 60,
                               value: widget.defaultValue,
-                              onChanged: (val) {
-                                setState(() {
-                                  optionValue = val;
-                                });
-                                widget.onChange(val);
-                              },
+                              onChanged: !widget.disabled || widget.isCreate
+                                  ? (val) {
+                                      setState(() {
+                                        optionValue = val;
+                                      });
+                                      widget.onChange(val);
+                                    }
+                                  : null,
                               items:
                                   widget.options.map<DropdownMenuItem>((value) {
                                 return DropdownMenuItem(

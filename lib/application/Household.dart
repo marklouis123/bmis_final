@@ -8,7 +8,7 @@ import '../infrastructure/api/HouseholdAPI.dart';
 class Household with ChangeNotifier {
   Household(Map setup) {
     this._setup = setup;
-    getHouseholdData();
+    getAllHouseholdData();
   }
   late Map _setup;
 
@@ -45,6 +45,8 @@ class Household with ChangeNotifier {
                 .asMap()
                 .entries
                 .map((val) => BMISFormField(
+                    disabledOnUpdate: val.value['disabledOnUpdate'] ?? false,
+                    required: val.value['required'] ?? false,
                     dataType: val.value['data_type'] ?? 'text',
                     subsectionKey: null,
                     sectionKey: val.value['parent_key'] ?? 'not-set',
@@ -129,46 +131,60 @@ class Household with ChangeNotifier {
     notifyListeners();
   }
 
-  void createHousehold(section) async {
-    // print(section);
-    var data = _documentData[section];
-    var familyIdentification = FamilyIdentification(
-        address: data['address'] != null
-            ? Address(
-                latitude: data['address']['latitude'],
-                longitude: data['address']['longitude'],
-                houseNumber: data['address']['house_number'],
-                StreetOrSubdivision: data['address']['street_or_subdivision'],
-                purok: data['address']['purok'],
-                barangay: data['address']['barangay'],
-                municipality: data['address']['municipality'],
-                province: data['address']['province'])
-            : null,
-        familyHeadID: data['family_head_id'],
-        familyStatus: data['family_status'],
-        headOfFamily: data['pangalan_ng_puno_ng_pamilya'] != null
-            ? HeadOfFamily(
-                firstName: data['pangalan_ng_puno_ng_pamilya']['first_name'],
-                middleName: data['pangalan_ng_puno_ng_pamilya']['middle_name'],
-                lastName: data['pangalan_ng_puno_ng_pamilya']['last_name'],
-                qualifier: data['pangalan_ng_puno_ng_pamilya']['qualifier'])
-            : null,
-        houseHoldType: data['household_type'],
-        householdCondition: HouseholdCondition(
-            householdCondition: data['household_condition'],
-            extendFamily: data['household_condition_extended']));
-
-    print('Data: ${familyIdentification.toMap()}');
-
-    var success = await HouseholdAPI.createHousehold(
-        familyIdentification.toMap(), familyIdentification.familyHeadID ?? "");
-    getHouseholdData();
+  void resetHouseholdData() async {
+    await HouseholdAPI.resetData();
     notifyListeners();
   }
 
-  void getHouseholdData() async {
+  void createHousehold(section) async {
+    // print(section);
+    var data = _documentData[section];
+    // var familyIdentification = FamilyIdentification(
+    //     address: data['address'] != null
+    //         ? Address(
+    //             latitude: data['address']['latitude'],
+    //             longitude: data['address']['longitude'],
+    //             houseNumber: data['address']['house_number'],
+    //             StreetOrSubdivision: data['address']['street_or_subdivision'],
+    //             purok: data['address']['purok'],
+    //             barangay: data['address']['barangay'],
+    //             municipality: data['address']['municipality'],
+    //             province: data['address']['province'])
+    //         : null,
+    //     familyHeadID: data['family_head_id'],
+    //     familyStatus: data['family_status'],
+    //     headOfFamily: data['pangalan_ng_puno_ng_pamilya'] != null
+    //         ? HeadOfFamily(
+    //             firstName: data['pangalan_ng_puno_ng_pamilya']['first_name'],
+    //             middleName: data['pangalan_ng_puno_ng_pamilya']['middle_name'],
+    //             lastName: data['pangalan_ng_puno_ng_pamilya']['last_name'],
+    //             qualifier: data['pangalan_ng_puno_ng_pamilya']['qualifier'])
+    //         : null,
+    //     houseHoldType: data['household_type'],
+    //     householdCondition: HouseholdCondition(
+    //         householdCondition: data['household_condition'],
+    //         extendFamily: data['household_condition_extended']));
+
+    // print('Data: ${familyIdentification.toMap()}');
+
+    // var success = await HouseholdAPI.createHousehold(
+    //     familyIdentification.toMap(), familyIdentification.familyHeadID ?? "");
+
+    var success =
+        await HouseholdAPI.createHousehold(data, data['family_head_id']);
+
+    getAllHouseholdData();
+    notifyListeners();
+  }
+
+  void getAllHouseholdData() async {
     var data = await HouseholdAPI.getHouseholdIndex();
     _houseHoldList = data.entries.map((val) => val.value).toList();
     notifyListeners();
+  }
+
+  Future<Map> getHousehold(String familyHeadID) async {
+    var data = await HouseholdAPI.getHousehold(familyHeadID) as Map;
+    return data;
   }
 }

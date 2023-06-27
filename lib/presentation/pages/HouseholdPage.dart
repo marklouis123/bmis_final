@@ -29,6 +29,14 @@ class _HouseholdPageState extends State<HouseholdPage> {
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           title: Center(child: Text("BMIS")),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                context.read<Household>().resetHouseholdData();
+              },
+            )
+          ],
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Color(0xff2a7a78),
@@ -83,13 +91,16 @@ class _HouseholdPageState extends State<HouseholdPage> {
                                     height: 70,
                                     child: Center(
                                       child: ListTile(
+                                          leading: Text(
+                                              data[index]['family_head_id']),
                                           title: Text(
-                                        data[index]['family_head_id'],
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w500),
-                                      )),
+                                            householdHead(data[index][
+                                                'pangalan_ng_puno_ng_pamilya']),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 22,
+                                                fontWeight: FontWeight.w500),
+                                          )),
                                     ),
                                   ))))),
                     )
@@ -99,10 +110,9 @@ class _HouseholdPageState extends State<HouseholdPage> {
         ));
   }
 
-  String householdText(Map citizenData) {
-    return citizenData['id'].toString() +
-        '-' +
-        citizenData['last_name'].toString() +
+  String householdHead(Map citizenData) {
+    print(citizenData);
+    return citizenData['last_name'].toString() +
         ", " +
         citizenData['first_name'];
   }

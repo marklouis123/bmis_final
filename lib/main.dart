@@ -80,7 +80,11 @@ GoRouter router() {
         routes: [
           GoRoute(
             path: 'createHousehold',
-            builder: (context, state) => const CreateHouseholdPage(),
+            builder: (context, state) => CreateHouseholdPage(),
+          ),
+          GoRoute(
+            path: 'updateHousehold',
+            builder: (context, state) => UpdateHouseholdPage(),
           ),
         ],
       ),

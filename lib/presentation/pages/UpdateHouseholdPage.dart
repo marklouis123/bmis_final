@@ -5,6 +5,7 @@ import 'package:bmis_final/presentation/components/ScrollableTab.dart';
 import 'package:bmis_final/widgets/field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:go_router/go_router.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,7 @@ class UpdateHouseholdPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var document = context.watch<Household>().document;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -22,14 +24,14 @@ class UpdateHouseholdPage extends StatelessWidget {
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
               backgroundColor: Theme.of(context).primaryColor,
-              title: const Align(
+              title: Align(
                 alignment: Alignment.centerLeft,
-                child: Text('HH-23277  Garces, Mark Louis'),
+                child: Text(householdHead(document).toString()),
               ),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () {
-                  Scaffold.of(context).openDrawer();
+                  context.go('/householdPage');
                 },
                 tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
               ),
@@ -69,6 +71,7 @@ class UpdateHouseholdPage extends StatelessWidget {
                   child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 8),
                       child: HouseholdForm(
+                        isCreate: false,
                         section: context.watch<Household>().currentSection,
                         action: SizedBox(),
                       ))),
@@ -101,5 +104,15 @@ class UpdateHouseholdPage extends StatelessWidget {
             ])),
           )),
     );
+  }
+
+  String householdHead(Map? document) {
+    Map familyIdentification = document!['family_identification'];
+
+    return familyIdentification['family_head_id'].toString() +
+        familyIdentification['pangalan_ng_puno_ng_pamilya']['last_name']
+            .toString() +
+        ", " +
+        familyIdentification['pangalan_ng_puno_ng_pamilya']['first_name'];
   }
 }

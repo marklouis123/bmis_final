@@ -22,7 +22,9 @@ Map setup = {
           "sublabel": "",
           "options": [],
           "conditional_fields": {},
-          "initialValues": ""
+          "initialValues": "",
+          "required": true,
+          "disabledOnUpdate": true
         },
         {
           "parent_key": "family_identification",
@@ -34,7 +36,8 @@ Map setup = {
           "sublabel": "",
           "options": ["Resident", "Institutional"],
           "conditional_fields": {},
-          "initialValues": ""
+          "initialValues": "",
+          "required": true
         },
         {
           "parent_key": "family_identification",
@@ -82,7 +85,8 @@ Map setup = {
               "sublabel": "",
               "options": [],
               "conditional_fields": {},
-              "initialValues": ""
+              "initialValues": "",
+              "required": true
             },
             {
               "parent_key": "address",
@@ -106,7 +110,8 @@ Map setup = {
               "sublabel": "",
               "options": [],
               "conditional_fields": {},
-              "initialValues": ""
+              "initialValues": "",
+              "required": true
             },
             {
               "parent_key": "address",
@@ -118,7 +123,8 @@ Map setup = {
               "sublabel": "",
               "options": [],
               "conditional_fields": {},
-              "initialValues": ""
+              "initialValues": "",
+              "required": true
             },
             {
               "parent_key": "address",
@@ -142,7 +148,8 @@ Map setup = {
               "sublabel": "",
               "options": [],
               "conditional_fields": {},
-              "initialValues": ""
+              "initialValues": "",
+              "required": true
             }
           ]
         },
@@ -168,7 +175,9 @@ Map setup = {
               "sublabel": "",
               "options": [],
               "conditional_fields": {},
-              "initialValues": ""
+              "initialValues": "",
+              "required": true,
+              "disabledOnUpdate": true
             },
             {
               "parent_key": "pangalan_ng_puno_ng_pamilya",
@@ -180,7 +189,8 @@ Map setup = {
               "sublabel": "",
               "options": [],
               "conditional_fields": {},
-              "initialValues": ""
+              "initialValues": "",
+              "disabledOnUpdate": true
             },
             {
               "parent_key": "pangalan_ng_puno_ng_pamilya",
@@ -192,7 +202,9 @@ Map setup = {
               "sublabel": "",
               "options": [],
               "conditional_fields": {},
-              "initialValues": ""
+              "initialValues": "",
+              "required": true,
+              "disabledOnUpdate": true
             },
             {
               "parent_key": "pangalan_ng_puno_ng_pamilya",
@@ -204,7 +216,8 @@ Map setup = {
               "sublabel": "",
               "options": [],
               "conditional_fields": {},
-              "initialValues": ""
+              "initialValues": "",
+              "disabledOnUpdate": true
             }
           ]
         },
@@ -219,6 +232,7 @@ Map setup = {
           "options": ["Owner (Main Family)", "Extended Family"],
           "initialValues": "",
           "child_columns": [],
+          "required": true,
           "conditional_fields": {
             "Extended Family": [
               {
@@ -232,7 +246,8 @@ Map setup = {
                 "options": [],
                 "conditional_fields": {},
                 "initialValues": "",
-                "child_columns": []
+                "child_columns": [],
+                "required": true
               }
             ]
           }
@@ -248,7 +263,8 @@ Map setup = {
           "options": ["Active", "Inactive"],
           "conditional_fields": {},
           "initialValues": "",
-          "child_columns": []
+          "child_columns": [],
+          "required": true
         }
       ]
     },

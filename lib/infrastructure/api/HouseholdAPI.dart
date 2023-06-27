@@ -41,6 +41,16 @@ class HouseholdAPI {
     }
   }
 
+  static resetData() async {
+    try {
+      var household = await Hive.openBox('households');
+      household.deleteFromDisk();
+      return true;
+    } catch (e) {
+      return e;
+    }
+  }
+
   //getHouseholdIndex
   //update document
   //update family identification

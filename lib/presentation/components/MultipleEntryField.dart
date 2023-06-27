@@ -14,12 +14,14 @@ class MultipleEntryField extends StatelessWidget {
     super.key,
     required this.fieldData,
     required this.section,
+    required this.isCreate,
     required this.mainContext,
   });
 
   final BuildContext mainContext;
   final BMISFormField fieldData;
   final String section;
+  final bool isCreate;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,7 @@ class MultipleEntryField extends StatelessWidget {
                           padding: EdgeInsets.only(
                               bottom: MediaQuery.of(context).viewInsets.bottom),
                           child: AddDataForm(
+                            isCreate: isCreate,
                             mainContext: mainContext,
                             fieldData: fieldData.childColumns as List,
                             title: fieldData.label,
@@ -208,6 +211,7 @@ class MultipleEntryField extends StatelessWidget {
                                                             .viewInsets
                                                             .bottom),
                                                     child: AddDataForm(
+                                                      isCreate: isCreate,
                                                       edit: true,
                                                       index: index - 1,
                                                       initialValue:
@@ -322,6 +326,7 @@ class AddDataForm extends StatefulWidget {
       required this.title,
       required this.section,
       required this.subsection,
+      required this.isCreate,
       required this.mainContext});
 
   final bool edit;
@@ -332,6 +337,7 @@ class AddDataForm extends StatefulWidget {
   final String section;
   final String subsection;
   final String title;
+  final bool isCreate;
 
   @override
   State<AddDataForm> createState() => _AddDataFormState();
@@ -419,6 +425,7 @@ class _AddDataFormState extends State<AddDataForm> {
                 return Column(
                   children: [
                     FieldWidget(
+                      isCreate: widget.isCreate,
                       question: '',
                       labelText: widget.fieldData[index]['label'],
                       hintText: widget.fieldData[index]['hint_text'],
@@ -432,6 +439,9 @@ class _AddDataFormState extends State<AddDataForm> {
                       defaultValue: tempData[widget.fieldData[index]['key']],
                       placeHolder: '',
                       conditional_fields: {},
+                      required: widget.fieldData[index]['required'],
+                      disabled:
+                          widget.fieldData[index]['disabledOnUpdate'] ?? false,
                     ),
                     tempData[widget.fieldData[index]['key']] != null &&
                             widget.fieldData[index]['conditional_fields']
@@ -445,6 +455,7 @@ class _AddDataFormState extends State<AddDataForm> {
                                             ['key']]]
                                     .length, (i) {
                               return FieldWidget(
+                                isCreate: widget.isCreate,
                                 question: '',
                                 labelText: widget.fieldData[index]
                                         ['conditional_fields'][
@@ -469,6 +480,15 @@ class _AddDataFormState extends State<AddDataForm> {
                                 defaultValue: null,
                                 placeHolder: '',
                                 conditional_fields: {},
+                                required: widget.fieldData[index]
+                                        ['conditional_fields'][
+                                    tempData[widget.fieldData[index]
+                                        ['key']]][i]['required'],
+                                disabled: widget.fieldData[index]
+                                            ['conditional_fields'][
+                                        tempData[widget.fieldData[index]
+                                            ['key']]][i]['disabledOnUpdate'] ??
+                                    false,
                               );
                             }),
                           )
