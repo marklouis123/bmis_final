@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bmis_final/presentation/components/HouseholdForm.dart';
 import 'package:bmis_final/presentation/components/MultiSelectField.dart';
 import 'package:bmis_final/presentation/components/MultipleEntryField.dart';
@@ -50,7 +51,38 @@ class UpdateHouseholdPage extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        bool result =
+                            await context.read<Household>().updateHousehold();
+                        if (result == true) {
+                          AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.success,
+                              borderSide: const BorderSide(
+                                color: Color(0xff2a7a78),
+                                width: 2,
+                              ),
+                              width: MediaQuery.of(context).size.width > 500
+                                  ? 500
+                                  : MediaQuery.of(context).size.width - 10,
+                              buttonsBorderRadius: const BorderRadius.all(
+                                Radius.circular(2),
+                              ),
+                              dismissOnTouchOutside: false,
+                              dismissOnBackKeyPress: false,
+                              headerAnimationLoop: false,
+                              animType: AnimType.bottomSlide,
+                              title: 'Household Update',
+                              showCloseIcon: false,
+                              btnCancelText: "Close",
+                              btnCancelOnPress: () {
+                                context.go('/householdPage');
+                              },
+                              btnOkOnPress: () {
+                                context.go('/householdPage');
+                              }).show();
+                        }
+                      },
                       child:
                           const Text('Update', style: TextStyle(fontSize: 16)),
                     ))
@@ -110,6 +142,7 @@ class UpdateHouseholdPage extends StatelessWidget {
     Map familyIdentification = document!['family_identification'];
 
     return familyIdentification['family_head_id'].toString() +
+        " " +
         familyIdentification['pangalan_ng_puno_ng_pamilya']['last_name']
             .toString() +
         ", " +

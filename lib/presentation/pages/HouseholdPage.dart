@@ -22,7 +22,7 @@ class _HouseholdPageState extends State<HouseholdPage> {
   @override
   Widget build(BuildContext context) {
     var data = context.watch<Household>().houseHoldList;
-    print('Data $data');
+    // print('Data $data');
     return Scaffold(
         backgroundColor: const Color(0xffdef2f1),
         resizeToAvoidBottomInset: false,
@@ -41,6 +41,7 @@ class _HouseholdPageState extends State<HouseholdPage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Color(0xff2a7a78),
           onPressed: () {
+            context.read<Household>().resetDocumentForm();
             context.go('/householdPage/createHousehold');
           },
           child: Icon(Icons.add),
@@ -78,31 +79,44 @@ class _HouseholdPageState extends State<HouseholdPage> {
                     Expanded(
                       child: ListView.builder(
                           itemCount: data.length,
-                          itemBuilder: ((context, index) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 4.0),
-                              child: Card(
-                                  color: Color(0xff829b82),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      side: BorderSide(
-                                          color: Color(0xff17252a), width: 2)),
-                                  child: Container(
-                                    height: 70,
-                                    child: Center(
-                                      child: ListTile(
-                                          leading: Text(
-                                              data[index]['family_head_id']),
-                                          title: Text(
-                                            householdHead(data[index][
-                                                'pangalan_ng_puno_ng_pamilya']),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 22,
-                                                fontWeight: FontWeight.w500),
-                                          )),
-                                    ),
-                                  ))))),
+                          itemBuilder: ((context, index) {
+                            var identity = data[index]['family_identification'];
+                            return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 4.0),
+                                child: Card(
+                                    color: Color(0xff829b82),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                        side: BorderSide(
+                                            color: Color(0xff17252a),
+                                            width: 2)),
+                                    child: Container(
+                                      height: 70,
+                                      child: Center(
+                                        child: ListTile(
+                                            onTap: () {
+                                              context
+                                                  .read<Household>()
+                                                  .selectHouseholdForUpdate(
+                                                      data[index]);
+                                              context.go(
+                                                  '/householdPage/updateHousehold');
+                                            },
+                                            leading: Text(
+                                                identity['family_head_id']),
+                                            title: Text(
+                                              householdHead(identity[
+                                                  'pangalan_ng_puno_ng_pamilya']),
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 22,
+                                                  fontWeight: FontWeight.w500),
+                                            )),
+                                      ),
+                                    )));
+                          })),
                     )
                   ],
                 ),
@@ -111,7 +125,6 @@ class _HouseholdPageState extends State<HouseholdPage> {
   }
 
   String householdHead(Map citizenData) {
-    print(citizenData);
     return citizenData['last_name'].toString() +
         ", " +
         citizenData['first_name'];

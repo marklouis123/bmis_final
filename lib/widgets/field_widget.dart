@@ -20,6 +20,7 @@ class FieldWidget extends StatefulWidget {
       required this.conditional_fields,
       required this.disabled,
       required this.required,
+      required this.dataVariable,
       required this.isCreate})
       : super(key: key);
   final String dataType;
@@ -34,6 +35,7 @@ class FieldWidget extends StatefulWidget {
   final bool required;
   final bool disabled;
   final bool isCreate;
+  final String dataVariable;
 
   @override
   State<FieldWidget> createState() => _FieldWidgetState();
@@ -44,9 +46,23 @@ class _FieldWidgetState extends State<FieldWidget> {
   final myController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    print("Init");
+    myController.text = widget.defaultValue.toString() == 'null'
+        ? ''
+        : widget.defaultValue.toString();
+  }
+
+  @override
   void didUpdateWidget(oldWidget) {
     super.didUpdateWidget(oldWidget);
-    optionValue = null;
+    if (widget.dataVariable != oldWidget.dataVariable) {
+      myController.text = widget.defaultValue.toString() == 'null'
+          ? ''
+          : widget.defaultValue.toString();
+      optionValue = null;
+    }
   }
 
   @override
@@ -91,6 +107,7 @@ class _FieldWidgetState extends State<FieldWidget> {
                       ? Container(
                           // margin: const EdgeInsets.only(top: 16.0),
                           child: TextFormField(
+                            controller: myController,
                             validator: (value) {
                               if (widget.required &&
                                   (value == null || value.isEmpty)) {
@@ -99,7 +116,6 @@ class _FieldWidgetState extends State<FieldWidget> {
 
                               return null;
                             },
-                            initialValue: widget.defaultValue,
                             enabled: !widget.disabled || widget.isCreate,
                             decoration: InputDecoration(
                               hintText: widget.hintText,

@@ -15,7 +15,7 @@ class Household with ChangeNotifier {
   int _count = 0;
   int _currentTab = 0;
   // Map _currentFormSection get => _setup.currentFormSection;
-  final Map _documentData = {};
+  Map _documentData = {};
   int get currentTab => _currentTab;
   int get count => _count;
   Map get document => _documentData;
@@ -127,12 +127,13 @@ class Household with ChangeNotifier {
         _documentData[section][subsection][key] = value;
       }
     }
-    print(_documentData);
+    print('On Field Change $_documentData');
     notifyListeners();
   }
 
   void resetHouseholdData() async {
     await HouseholdAPI.resetData();
+    getAllHouseholdData();
     notifyListeners();
   }
 
@@ -170,8 +171,8 @@ class Household with ChangeNotifier {
     // var success = await HouseholdAPI.createHousehold(
     //     familyIdentification.toMap(), familyIdentification.familyHeadID ?? "");
 
-    var success =
-        await HouseholdAPI.createHousehold(data, data['family_head_id']);
+    var success = await HouseholdAPI.createHousehold(
+        {section: data}, data['family_head_id']);
 
     getAllHouseholdData();
     notifyListeners();
@@ -179,12 +180,41 @@ class Household with ChangeNotifier {
 
   void getAllHouseholdData() async {
     var data = await HouseholdAPI.getHouseholdIndex();
+
     _houseHoldList = data.entries.map((val) => val.value).toList();
+
+    print('Index $_houseHoldList');
     notifyListeners();
+  }
+
+  Future<bool> updateHousehold() async {
+    try {
+      print('Payload $_documentData');
+      var data = await HouseholdAPI.updateHousehold(_documentData,
+          _documentData['family_identification']['family_head_id']);
+      getAllHouseholdData();
+      // _documentData = {};
+      // notifyListeners();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   Future<Map> getHousehold(String familyHeadID) async {
     var data = await HouseholdAPI.getHousehold(familyHeadID) as Map;
     return data;
+  }
+
+  void selectHouseholdForUpdate(Map household) {
+    _documentData = household;
+    _currentTab = 0;
+    notifyListeners();
+  }
+
+  void resetDocumentForm() {
+    _currentTab = 0;
+    _documentData = {};
+    notifyListeners();
   }
 }

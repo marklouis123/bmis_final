@@ -439,9 +439,10 @@ class _AddDataFormState extends State<AddDataForm> {
                       defaultValue: tempData[widget.fieldData[index]['key']],
                       placeHolder: '',
                       conditional_fields: {},
-                      required: widget.fieldData[index]['required'],
+                      required: widget.fieldData[index]['required'] ?? false,
                       disabled:
                           widget.fieldData[index]['disabledOnUpdate'] ?? false,
+                      dataVariable: widget.fieldData[index]['key'],
                     ),
                     tempData[widget.fieldData[index]['key']] != null &&
                             widget.fieldData[index]['conditional_fields']
@@ -473,10 +474,7 @@ class _AddDataFormState extends State<AddDataForm> {
                                         ['conditional_fields'][
                                     tempData[widget.fieldData[index]
                                         ['key']]][i]['options'],
-                                onChange: (val) {
-                                  print("Add forms conditional");
-                                  print(val);
-                                },
+                                onChange: (val) {},
                                 defaultValue: null,
                                 placeHolder: '',
                                 conditional_fields: {},
@@ -489,6 +487,10 @@ class _AddDataFormState extends State<AddDataForm> {
                                         tempData[widget.fieldData[index]
                                             ['key']]][i]['disabledOnUpdate'] ??
                                     false,
+                                dataVariable: widget.fieldData[index]
+                                        ['conditional_fields'][
+                                    tempData[widget.fieldData[index]
+                                        ['key']]][i]['key'],
                               );
                             }),
                           )

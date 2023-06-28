@@ -22,7 +22,7 @@ class HouseholdForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var document = context.watch<Household>().getDataBySection(section);
-    print(document);
+    print('Document: $document');
     return SingleChildScrollView(
       child: Container(
         child: Card(
@@ -101,6 +101,8 @@ class HouseholdForm extends StatelessWidget {
                                               .childColumns[i]
                                           ['disabledOnUpdate'] ??
                                       false,
+                                  dataVariable: section.childColumns[index]
+                                      .childColumns[i]['key'],
                                 )),
                             context.watch<Household>().getFieldValue(
                                               section.key,
@@ -219,6 +221,18 @@ class HouseholdForm extends StatelessWidget {
                                                               ['key'])]
                                               ['disabledOnUpdate'] ??
                                           false,
+                                      dataVariable: section.childColumns[index]
+                                                  .childColumns[i]
+                                              ['conditional_fields'][
+                                          context
+                                              .read<Household>()
+                                              .getFieldValue(
+                                                  section.key,
+                                                  section
+                                                      .childColumns[index].key,
+                                                  section.childColumns[index]
+                                                          .childColumns[i]
+                                                      ['key'])]['key'],
                                     ))
                                 : SizedBox()
                           ],
@@ -292,6 +306,7 @@ class HouseholdForm extends StatelessWidget {
                           required: section.childColumns[index].required,
                           disabled:
                               section.childColumns[index].disabledOnUpdate,
+                          dataVariable: section.childColumns[index].key,
                         ),
                         context.watch<Household>().getFieldValue(
                                         section.key,
@@ -471,6 +486,17 @@ class HouseholdForm extends StatelessWidget {
                                                                     .key)][i]
                                                     ['disabledOnUpdate'] ??
                                                 false,
+                                        dataVariable: section
+                                                .childColumns[index]
+                                                .conditional_fields[
+                                            context
+                                                .read<Household>()
+                                                .getFieldValue(
+                                                    section.key,
+                                                    section.childColumns[index]
+                                                        .key,
+                                                    section.childColumns[index]
+                                                        .key)][i]['key'],
                                       ));
                                 }),
                               )

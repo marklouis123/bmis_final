@@ -31,10 +31,11 @@ class HouseholdAPI {
     }
   }
 
-  static updateHousehold(Map household, String familyHeadID) async {
+  static updateHousehold(Map householdData, String familyHeadID) async {
     try {
+      print('Household Payload: $householdData');
       var household = await Hive.openBox('households');
-      household.put(familyHeadID, household);
+      await household.put(familyHeadID, householdData);
       return true;
     } catch (e) {
       return e;
