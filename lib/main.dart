@@ -13,6 +13,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'config/householdConfig.dart';
+import 'presentation/pages/testing/create_family_members_information_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -91,9 +92,14 @@ GoRouter router() {
         ],
       ),
       GoRoute(
-        path: '/familyMembersInformationPage',
-        builder: (context, state) => const FamilyMembersInformationPage(),
-      ),
+          path: '/familyMembersInformationPage',
+          builder: (context, state) => const FamilyMembersInformationPage(),
+          routes: [
+            GoRoute(
+              path: 'createFamilyMemberInformation',
+              builder: (context, state) => CreateFamilyMembersInformationPage(),
+            ),
+          ]),
     ],
   );
 }
