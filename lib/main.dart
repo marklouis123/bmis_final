@@ -5,6 +5,7 @@ import 'package:bmis_final/presentation/components/ScrollableTab.dart';
 import 'package:bmis_final/presentation/pages/HouseholdPage.dart';
 import 'package:bmis_final/presentation/pages/UpdateHouseholdPage.dart';
 import 'package:bmis_final/presentation/pages/household/CreateHousehold.dart';
+import 'package:bmis_final/presentation/pages/testing/family_members_information_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
@@ -12,6 +13,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'config/householdConfig.dart';
+import 'presentation/pages/testing/create_family_members_information_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -81,6 +83,7 @@ class MyApp extends StatelessWidget {
 GoRouter router() {
   return GoRouter(
     initialLocation: '/householdPage',
+    // initialLocation: '/familyMembersInformationPage',
     routes: [
       GoRoute(
         path: '/householdPage',
@@ -96,6 +99,15 @@ GoRouter router() {
           ),
         ],
       ),
+      GoRoute(
+          path: '/familyMembersInformationPage',
+          builder: (context, state) => const FamilyMembersInformationPage(),
+          routes: [
+            GoRoute(
+              path: 'createFamilyMemberInformation',
+              builder: (context, state) => CreateFamilyMembersInformationPage(),
+            ),
+          ]),
     ],
   );
 }
