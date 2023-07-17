@@ -183,7 +183,7 @@ class Household with ChangeNotifier {
 
     _houseHoldList = data.entries.map((val) => val.value).toList();
 
-    print('Index $_houseHoldList');
+    // print('Index $_houseHoldList');
     notifyListeners();
   }
 

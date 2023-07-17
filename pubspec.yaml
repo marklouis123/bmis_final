@@ -43,6 +43,8 @@ dependencies:
   uuid: ^3.0.7
   go_router: ^9.0.0
   awesome_dialog: ^3.1.0
+  textfield_search: ^0.10.0
+  searchfield: ^0.8.3
 
 dev_dependencies:
   flutter_test:

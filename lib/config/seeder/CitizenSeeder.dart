@@ -10,8 +10,7 @@ class CitizenSeeder {
 
     for (var x = 0; x < count; x++) {
       list.add(Citizen(
-              id: faker.randomGenerator.string(3) +
-                  faker.randomGenerator.integer(5).toString(),
+              id: 'BM-' + faker.randomGenerator.integer(5).toString(),
               first_name: faker.person.firstName(),
               last_name: faker.person.lastName(),
               middle_name: faker.person.lastName(),

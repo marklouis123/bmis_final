@@ -17,6 +17,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);
+
+  // List list = CitizenSeeder.generateCitizen(20);
+  // var citizen = await Hive.openBox('citizen');
+  // // await citizen.addAll(list);
+  // print(citizen.values.where((user) => user['first_name'].startsWith('m')));
+
+  // citizen.close();
+
   runApp(const MyApp());
 }
 

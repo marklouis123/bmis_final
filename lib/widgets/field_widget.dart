@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:bmis_final/application/CitizenProvider.dart';
 import 'package:bmis_final/config/global/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:searchfield/searchfield.dart';
 
 import '../application/Household.dart';
 
@@ -104,44 +106,85 @@ class _FieldWidgetState extends State<FieldWidget> {
               : widget.dataType == 'multiple_select'
                   ? Text("Multiple Select")
                   : widget.options.isEmpty
-                      ? Container(
-                          // margin: const EdgeInsets.only(top: 16.0),
-                          child: TextFormField(
-                            controller: myController,
-                            validator: (value) {
-                              if (widget.required &&
-                                  (value == null || value.isEmpty)) {
-                                return 'This field is required';
-                              }
+                      ? widget.dataType == 'search'
+                          ? SearchField(
+                              searchInputDecoration: InputDecoration(
+                                hintText: widget.hintText,
+                                labelText: widget.labelText,
+                                border: const OutlineInputBorder(),
+                                fillColor: Colors.white,
+                                filled: true,
+                              ),
+                              onSearchTextChanged: (query) {
+                                Provider.of<CitizenProvider>(context,
+                                        listen: false)
+                                    .searchCitizen(query);
+                              },
+                              key: const Key('searchfield'),
+                              hint: widget.hintText,
+                              itemHeight: 50,
+                              suggestionsDecoration: SuggestionDecoration(
+                                  padding: const EdgeInsets.all(4),
+                                  border: Border.all(color: Color(0xff17252a)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              suggestions: context
+                                  .watch<CitizenProvider>()
+                                  .citizenSuggestion
+                                  .map((e) =>
+                                      SearchFieldListItem<String>(e.toString(),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 4.0),
+                                            child: Text(e.toString(),
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    color: Color(0xff17252a))),
+                                          )))
+                                  .toList(),
+                              suggestionState: Suggestion.expand,
+                              onSuggestionTap: (SearchFieldListItem<String> x) {
+                                print('Selectedasldf: ${x}');
+                              },
+                            )
+                          : Container(
+                              // margin: const EdgeInsets.only(top: 16.0),
+                              child: TextFormField(
+                                controller: myController,
+                                validator: (value) {
+                                  if (widget.required &&
+                                      (value == null || value.isEmpty)) {
+                                    return 'This field is required';
+                                  }
 
-                              return null;
-                            },
-                            enabled: !widget.disabled || widget.isCreate,
-                            decoration: InputDecoration(
-                              hintText: widget.hintText,
-                              labelText: widget.labelText,
-                              border: const OutlineInputBorder(),
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                            keyboardType: widget.dataType == 'text'
-                                ? TextInputType.text
-                                : widget.dataType == 'number'
-                                    ? TextInputType.number
-                                    : widget.dataType == 'phone'
-                                        ? TextInputType.phone
-                                        : widget.dataType == 'date'
-                                            ? TextInputType.datetime
-                                            : TextInputType.text,
-                            inputFormatters: widget.dataType == 'number'
-                                ? [
-                                    FilteringTextInputFormatter.allow(
-                                        RegExp(r"^\d*\.?\d*$")),
-                                  ]
-                                : [],
-                            onChanged: widget.onChange,
-                          ),
-                        )
+                                  return null;
+                                },
+                                enabled: !widget.disabled || widget.isCreate,
+                                decoration: InputDecoration(
+                                  hintText: widget.hintText,
+                                  labelText: widget.labelText,
+                                  border: const OutlineInputBorder(),
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                ),
+                                keyboardType: widget.dataType == 'text'
+                                    ? TextInputType.text
+                                    : widget.dataType == 'number'
+                                        ? TextInputType.number
+                                        : widget.dataType == 'phone'
+                                            ? TextInputType.phone
+                                            : widget.dataType == 'date'
+                                                ? TextInputType.datetime
+                                                : TextInputType.text,
+                                inputFormatters: widget.dataType == 'number'
+                                    ? [
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp(r"^\d*\.?\d*$")),
+                                      ]
+                                    : [],
+                                onChanged: widget.onChange,
+                              ),
+                            )
                       : Container(
                           child: DropdownButtonHideUnderline(
                             child: DropdownButtonFormField<dynamic>(

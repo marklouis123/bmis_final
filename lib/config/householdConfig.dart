@@ -17,7 +17,7 @@ Map setup = {
           "key": "family_head_id",
           "label": "Family Head ID",
           "hint_text": "Enter Family Head ID",
-          "data_type": "text",
+          "data_type": "search",
           "question": "",
           "sublabel": "",
           "options": [],
