@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:bmis_final/presentation/components/FamilyMembersInformation.dart';
 import 'package:bmis_final/presentation/components/HouseholdForm.dart';
 import 'package:bmis_final/presentation/components/MultiSelectField.dart';
 import 'package:bmis_final/presentation/components/MultipleEntryField.dart';
@@ -99,14 +100,17 @@ class UpdateHouseholdPage extends StatelessWidget {
                   context.read<Household>().selectTab(index);
                 },
               ),
-              Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 8),
-                      child: HouseholdForm(
-                        isCreate: false,
-                        section: context.watch<Household>().currentSection,
-                        action: SizedBox(),
-                      ))),
+              context.watch<Household>().currentSection.key ==
+                      'family_members_information'
+                  ? FamilyMembersInformation()
+                  : Expanded(
+                      child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          child: HouseholdForm(
+                            isCreate: false,
+                            section: context.watch<Household>().currentSection,
+                            action: SizedBox(),
+                          ))),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

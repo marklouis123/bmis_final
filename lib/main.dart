@@ -1,6 +1,7 @@
 import 'package:bmis_final/application/CitizenProvider.dart';
 import 'package:bmis_final/application/Household.dart';
 import 'package:bmis_final/config/seeder/CitizenSeeder.dart';
+import 'package:bmis_final/presentation/components/AddFamilyMember.dart';
 import 'package:bmis_final/presentation/components/ScrollableTab.dart';
 import 'package:bmis_final/presentation/pages/HouseholdPage.dart';
 import 'package:bmis_final/presentation/pages/UpdateHouseholdPage.dart';
@@ -94,9 +95,14 @@ GoRouter router() {
             builder: (context, state) => CreateHouseholdPage(),
           ),
           GoRoute(
-            path: 'updateHousehold',
-            builder: (context, state) => UpdateHouseholdPage(),
-          ),
+              path: 'updateHousehold',
+              builder: (context, state) => UpdateHouseholdPage(),
+              routes: [
+                GoRoute(
+                  path: 'addFamilyMember',
+                  builder: (context, state) => AddFamilyMemberPage(),
+                )
+              ]),
         ],
       ),
       GoRoute(
