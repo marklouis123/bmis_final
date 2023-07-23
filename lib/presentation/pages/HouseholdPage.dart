@@ -22,7 +22,6 @@ class _HouseholdPageState extends State<HouseholdPage> {
   @override
   Widget build(BuildContext context) {
     var data = context.watch<Household>().houseHoldList;
-    // print('Data $data');
     return Scaffold(
         backgroundColor: const Color(0xffdef2f1),
         resizeToAvoidBottomInset: false,
@@ -80,7 +79,7 @@ class _HouseholdPageState extends State<HouseholdPage> {
                       child: ListView.builder(
                           itemCount: data.length,
                           itemBuilder: ((context, index) {
-                            var identity = data[index]['family_identification'];
+                            var household = data[index];
                             return Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 4.0),
@@ -105,9 +104,10 @@ class _HouseholdPageState extends State<HouseholdPage> {
                                                   '/householdPage/updateHousehold');
                                             },
                                             leading: Text(
-                                                identity['family_head_id']),
+                                                household['family_head_id']
+                                                    .toString()),
                                             title: Text(
-                                              householdHead(identity[
+                                              householdHead(household[
                                                   'pangalan_ng_puno_ng_pamilya']),
                                               style: TextStyle(
                                                   color: Colors.white,
@@ -124,7 +124,10 @@ class _HouseholdPageState extends State<HouseholdPage> {
         ));
   }
 
-  String householdHead(Map citizenData) {
+  String householdHead(Map? citizenData) {
+    if (citizenData == null) {
+      return "";
+    }
     return citizenData['last_name'].toString() +
         ", " +
         citizenData['first_name'];

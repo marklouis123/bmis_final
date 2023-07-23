@@ -1,6 +1,15 @@
 import 'package:hive/hive.dart';
 
 class HouseholdAPI {
+  static getProjectConfig() async {
+    try {
+      var projectConfig = await Hive.openBox('config');
+      return await projectConfig.get('project_config');
+    } catch (e) {
+      return e;
+    }
+  }
+
   static getHouseholdIndex() async {
     try {
       var household = await Hive.openBox('households');
@@ -11,7 +20,6 @@ class HouseholdAPI {
   }
 
   static createHousehold(Map householdData, String familyHeadID) async {
-    print('createHousehold $familyHeadID $householdData');
     try {
       var household = await Hive.openBox('households');
       household.put(familyHeadID, householdData);

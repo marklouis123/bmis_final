@@ -28,6 +28,7 @@ class MultipleEntryField extends StatelessWidget {
     var data = mainContext
         .watch<Household>()
         .getMultiEntryValue(section, fieldData.key);
+    print('MultiEntry data: ${data}');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -291,6 +292,14 @@ class MultipleEntryField extends StatelessWidget {
       ],
     );
   }
+}
+
+String handleData(Map val, String key) {
+  String data = "";
+  if (val.containsKey(key)) {
+    data = val[key];
+  }
+  return data;
 }
 
 List<Widget> _buildCells(int count) {

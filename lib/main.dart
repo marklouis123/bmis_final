@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
               onSurface: Color(0xff17252a))),
       home: MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => Household(setup)),
+          ChangeNotifierProvider(create: (_) => Household()),
           ChangeNotifierProvider(create: (_) => CitizenProvider()),
         ],
         child: MaterialApp.router(

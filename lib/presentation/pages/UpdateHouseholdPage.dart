@@ -19,6 +19,7 @@ class UpdateHouseholdPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var document = context.watch<Household>().document;
+    print('Document $document');
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -28,7 +29,7 @@ class UpdateHouseholdPage extends StatelessWidget {
               backgroundColor: Theme.of(context).primaryColor,
               title: Align(
                 alignment: Alignment.centerLeft,
-                child: Text(householdHead(document).toString()),
+                child: Text(document.toString()),
               ),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),

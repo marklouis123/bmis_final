@@ -45,6 +45,7 @@ dependencies:
   awesome_dialog: ^3.1.0
   textfield_search: ^0.10.0
   searchfield: ^0.8.3
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:

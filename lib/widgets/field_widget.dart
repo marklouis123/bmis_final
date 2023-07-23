@@ -192,12 +192,12 @@ class _FieldWidgetState extends State<FieldWidget> {
                                 border: OutlineInputBorder(),
                               ),
                               validator: (value) {
-                                if (widget.required &&
-                                    (value == null || value.isEmpty)) {
-                                  return 'This field is required';
-                                }
+                                // if (widget.required &&
+                                //     (value == null || value.isEmpty)) {
+                                //   return 'This field is required';
+                                // }
 
-                                return null;
+                                // return null;
                               },
                               hint: Text(
                                 widget.hintText,

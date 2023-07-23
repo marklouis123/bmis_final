@@ -21,7 +21,7 @@ class HouseholdForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var document = context.watch<Household>().getDataBySection(section);
+    var document = context.watch<Household>().document;
     print('Document: $document');
     return SingleChildScrollView(
       child: Container(

@@ -1,14 +1,18 @@
 import 'package:bmis_final/domain/household/models/FamilyIdentification.dart';
+import 'package:bmis_final/infrastructure/api/ConfigAPI.dart';
 import 'package:bmis_final/models/BMISFormField.dart';
 import 'package:bmis_final/models/FormSection.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 import '../infrastructure/api/HouseholdAPI.dart';
+import 'package:hive/hive.dart';
 
 class Household with ChangeNotifier {
-  Household(Map setup) {
-    this._setup = setup;
+  Household() {
     getAllHouseholdData();
+    // ConfigAPI.initProjectConfig();
+    // ConfigAPI.getAllHouseholdData();
+    this.initProject();
   }
   late Map _setup;
 
@@ -29,6 +33,10 @@ class Household with ChangeNotifier {
     if (_documentData.containsKey(section.key))
       return _documentData[section.key];
     return {};
+  }
+
+  void initProject() async {
+    this._setup = await HouseholdAPI.getProjectConfig();
   }
 
   List<FormSection> get tabs {
@@ -71,9 +79,9 @@ class Household with ChangeNotifier {
   }
 
   List getMultiEntryValue(section, subsection) {
-    if (_documentData.containsKey(section) &&
-        _documentData[section].containsKey(subsection)) {
-      return _documentData[section][subsection];
+    print('Subsection: $subsection');
+    if (_documentData.containsKey(subsection)) {
+      return _documentData[subsection];
     } else {
       return [];
     }
@@ -131,10 +139,10 @@ class Household with ChangeNotifier {
     notifyListeners();
   }
 
-  void resetHouseholdData() async {
+  Future resetHouseholdData() async {
     await HouseholdAPI.resetData();
-    getAllHouseholdData();
-    notifyListeners();
+    // getAllHouseholdData();
+    // notifyListeners();
   }
 
   void createHousehold(section) async {
@@ -180,7 +188,7 @@ class Household with ChangeNotifier {
 
   void getAllHouseholdData() async {
     var data = await HouseholdAPI.getHouseholdIndex();
-
+    // print('Data $data');
     _houseHoldList = data.entries.map((val) => val.value).toList();
 
     // print('Index $_houseHoldList');
@@ -207,6 +215,7 @@ class Household with ChangeNotifier {
   }
 
   void selectHouseholdForUpdate(Map household) {
+    print('Household to upodate: $household');
     _documentData = household;
     _currentTab = 0;
     notifyListeners();
