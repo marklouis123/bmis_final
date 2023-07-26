@@ -9,7 +9,8 @@ import 'package:hive/hive.dart';
 
 class Household with ChangeNotifier {
   Household() {
-    getAllHouseholdData();
+    getHouseholdList(null);
+    getStatusCount();
     // ConfigAPI.initProjectConfig();
     // ConfigAPI.getAllHouseholdData();
     this.initProject();
@@ -18,16 +19,44 @@ class Household with ChangeNotifier {
 
   int _count = 0;
   int _currentTab = 0;
+  int _statusTab = 0;
+  Map _statusCount = {
+    0: 0,
+    1: 0,
+    2: 0,
+  };
   // Map _currentFormSection get => _setup.currentFormSection;
   Map _documentData = {};
   int get currentTab => _currentTab;
   int get count => _count;
+  int get statusTab => _statusTab;
   Map get document => _documentData;
   FormSection get currentSection => tabs[currentTab];
   List _houseHoldList = [];
-
+  Map get statusCount => _statusCount;
   List get houseHoldList => _houseHoldList;
   List<FormSection> get createTabs => [tabs[0]];
+  void updateStatusTab(tab) {
+    _statusTab = tab;
+    getHouseholdList(null);
+    notifyListeners();
+  }
+
+  void getStatusCount() async {
+    var data = await HouseholdAPI.statusTabCount();
+    _statusCount = data;
+    notifyListeners();
+  }
+
+  void getHouseholdList(filter) async {
+    var data = await HouseholdAPI.getHouseholdIndex(
+        filter: filter, statusTab: _statusTab);
+    // _houseHoldList = data.entries.map((val) => val.value).toList();
+
+    this._houseHoldList = data.toList();
+    getStatusCount();
+    notifyListeners();
+  }
 
   Map getDataBySection(section) {
     if (_documentData.containsKey(section.key))
@@ -200,11 +229,11 @@ class Household with ChangeNotifier {
       print('Payload $_documentData');
       var data = await HouseholdAPI.updateHousehold(_documentData,
           _documentData['family_identification']['family_head_id']);
-      getAllHouseholdData();
       // _documentData = {};
       // notifyListeners();
       return true;
     } catch (e) {
+      print(e);
       return false;
     }
   }

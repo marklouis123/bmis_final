@@ -29,7 +29,28 @@ class UpdateHouseholdPage extends StatelessWidget {
               backgroundColor: Theme.of(context).primaryColor,
               title: Align(
                 alignment: Alignment.centerLeft,
-                child: Text(document.toString()),
+                child: Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(10), // radius of 10
+                          color: Colors.orange // green as background color
+                          ),
+                      child: Text(
+                        document['family_head_id'].toString(),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Text(document['pangalan_ng_puno_ng_pamilya']['middle_name'],
+                        style: TextStyle(color: Colors.white, fontSize: 20))
+                  ],
+                ),
               ),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
